@@ -47,9 +47,10 @@ Delete own listings
 Edit/customize profile (profile picture, location, etc.)
 View history seller/buyer
 View orders
-Ratings for Sellers
+Ratings for sellers
 
 Technologies Used:
 Using MERN Stack
 Tools: Visual Studio 2019, GitHub, MongoDB, Express, React, Node
+
 Languages: Javascript, CSS, HTML
