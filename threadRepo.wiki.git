@@ -21,6 +21,18 @@ This wiki is a complete collection of requirements for the development of thread
 These requirements help in the development of the application by giving an outline of the 
 priorities to be taken during different stages of development.
 
+1.2 Scope
+ThreadRepo Will be an e-commerse web application that is a place for users to buy and sell
+apparel and shoes.  Communication between users will be allowed for inquries, and we want 
+to give a user friendly approach to enable fast transactions. We want our web application to 
+be aesthetically pleasing in order to inhance the experience. 
+
+The user will need to have access to an account in order to buy and sell. Requirements will
+include the First Name, Last Name, personal or professional email, What they buy and sell.
+Buyers will be given a prompt to enter payment information using paypal and sellers will 
+be able to give a price on the product and describe it.  Listing will be available to users
+with no profile but will not be able to purchase anything without an account. 
+
 
 4. Prioritization
 The order of priority for threadRepo begins with the establishment of the main webpage that
