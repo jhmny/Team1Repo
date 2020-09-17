@@ -11,6 +11,7 @@ Project Team (Hard Hats) members:
 3. Harpreet Ghag
 4. Joshua Mendoza
 5. Micah Mercado
+
 Project Start Date: 09/03/2020
 Project Tentative completion date: 11/26/2020 
  
