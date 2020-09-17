@@ -22,6 +22,11 @@ These requirements help in the development of the application by giving an outli
 priorities to be taken during different stages of development.
 
 
+4. Prioritization
+The order of priority for threadRepo begins with the establishment of the main webpage that
+allows users to view some example pages of listed items.  At the same time, users will be capable
+of logging into their own personal account.
+
 
 
 
