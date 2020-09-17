@@ -33,6 +33,11 @@ Buyers will be given a prompt to enter payment information using paypal and sell
 be able to give a price on the product and describe it.  Listing will be available to users
 with no profile but will not be able to purchase anything without an account. 
 
+1.3 Overview
+threadRepo will be comprised of technolgies featured in the MERN Stack. 
+Those technologies being MongoDB, Express.js, React, and Node.js. 
+Using these Four technolgies we will full create our website, with all features listed in Scope.
+We go into further details in section 2. Description. 
 
 4. Prioritization
 The order of priority for threadRepo begins with the establishment of the main webpage that
