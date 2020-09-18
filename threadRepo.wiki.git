@@ -40,9 +40,33 @@ Using these Four technolgies we will full create our website, with all features 
 We go into further details in section 2. Description. 
 
 4. Prioritization
-The order of priority for threadRepo begins with the establishment of the main webpage that
-allows users to view some example pages of listed items.  At the same time, users will be capable
-of logging into their own personal account.
+The order of priority for threadRepo starts with establishing a functional main webpage, this 
+means having a properly layed out design for the site.  There will be some examples of listings
+up for a user to view.  Users will also have the ability to create a profile that incorporates 
+login capabilities.
+
+The following item in the list of priorities for threadRepo is the ability for users to create, 
+delete and edit listings that they created.  This will include having incorporated a database in 
+which details about different listings will be stored and modified in.
+
+The next item in the list of priorities for threadRepo will be to the ability for users to view 
+their orders and history.  Users will also be able to leave comments on live listenings.
+
+Next item in the list of priorites for threadRepo are some administrative features.  These features
+will include those that users are capable of but will include some features that will only be usable
+by the admin of threadRepo.
+
+The next item in the priority list for threadRepo is a search/filter ability.  This will allow users 
+search for specific items through title descriptions or filter items based on a category of listens, 
+price range and a range of other variables.  Users will have the ability to bookmark and share listings.  
+Users will also have a comment section that they will be able to interact with.
+
+The next feature in our prioritized features is a peer to peer messaging system.  This will allow users 
+to communicate with each other and help a successful transaction among them.  Users will also have the 
+ability to customize their own profile pages.
+
+The final feature for threadRepo will be UI/UX polishing and minor tweaks to some of the functionality
+of the site.
 
 
 
