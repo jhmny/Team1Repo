@@ -1,56 +1,68 @@
-# Team1Repo
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-New Main branch for Team 1's Project threadRepo
+## Available Scripts
 
-Project Proposal
-Project Name: E-Commerce/Online Marketplace Clothing Website
-Project Lead: Micah Mercado
-Project Team (Hard Hats) members:
-1. David Andrade
-2. Luis Berber
-3. Harpreet Ghag
-4. Joshua Mendoza
-5. Micah Mercado
+In the project directory, you can run:
 
-Project Start Date: 09/03/2020
-Project Tentative completion date: 11/26/2020 
- 
-Project Description: 
-People are always shopping online for clothes and are online-window shopping or looking for specific clothes especially nowadays with people staying/quarantining  at home. With this website, users can create an account and login to shop for other people’s clothes whether it be new or used. They can create their own listings, and sell their own clothes. Users can private message each other for more information, or add to the public comment section for a listing.
+### `npm start`
 
-Project Objectives:
-2 roles - Admin and User
-Both roles have a login with username and password
-Separate logins and dashboards for both users
+Runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-Admin features:
-Have same abilities as User
-Delete any listings
-Ban/unban users
-Create new category/tags for listings
-Create “certain deals” (set search to be under X price or certain category/tag for promotion)
-Look at statistics such as total sales etc. through admin dashboard
+The page will reload if you make edits.<br />
+You will also see any lint errors in the console.
 
-User features:
-Create listings for clothes
-Edit listings
-Comment on listings
-Share listings
-Bookmark listings
-Private message other users
-Purchase listings from other users
-Search for listings
-Refine/filter search for listings
-Sort listings
-Report listings/users
-Delete own listings
-Edit/customize profile (profile picture, location, etc.)
-View history seller/buyer
-View orders
-Ratings for sellers
+### `npm test`
 
-Technologies Used:
-Using MERN Stack
-Tools: Visual Studio 2019, GitHub, MongoDB, Express, React, Node
+Launches the test runner in the interactive watch mode.<br />
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-Languages: Javascript, CSS, HTML
+### `npm run build`
+
+Builds the app for production to the `build` folder.<br />
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.<br />
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+
+### Analyzing the Bundle Size
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+
+### Making a Progressive Web App
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+
+### Advanced Configuration
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+
+### Deployment
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+
+### `npm run build` fails to minify
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
