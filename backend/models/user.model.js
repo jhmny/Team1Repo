@@ -1,4 +1,4 @@
-var express = require("express");
+/*var express = require("express");
 var bodyParser = require("body-parser");
 
 const mongoose = require('mongoose');
@@ -9,8 +9,61 @@ db.on('error', console.log.bind(console, "connection error"));
 db.once('open', function(callback){
     console.log("connection succeeded");
 })
+*/
 
-var app = express();
+const mongoose = require('mongoose');
+//require('mongoose-type-email');
+
+//mongoose.SchemaTypes.Email.defaults.message = 'Email address is invalid'
+
+const Schema = mongoose.Schema;
+
+const userSchema = new Schema({
+        firstname: {
+            type: String,
+            required: true,
+            trim: true
+        },
+
+        lastname: {
+            type: String,
+            required: true,
+            trim: true
+        },
+
+        email: {
+            type: String,
+            required: true
+        },
+
+        password: {
+            type: String,
+            required: true
+
+        },
+
+}, {
+        timestamps: true,
+})
+
+const User = mongoose.model('User', userSchema);
+
+module.exports = User;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*var app = express();
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
@@ -20,7 +73,7 @@ app.use(bodyParser.urlencoded({
 
 app.post('/sign_up', function(req, res) {             
     var firstName = req.body.firstName;
-    var lastName  = req.body. lastName;
+    var lastName  = req.body.lastName;
     var email = req.body.email;
     var pass = req.body.password;
 
@@ -28,7 +81,7 @@ app.post('/sign_up', function(req, res) {
         "firstName": firstName,
         "lastName": lastName,
         "email": email,
-        "password":pass
+        "pass": pass
     }
 
 db.collection('details').insertOne(data, function(err, collection){
@@ -49,3 +102,4 @@ app.get('/', function(req, res) {                                       //We may
 }).listen(5000)
 
 console.log("server listening at port 5000");
+*/

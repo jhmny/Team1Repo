@@ -11,7 +11,7 @@ const listingSchema = new Schema({
     name: { // Name of the listing
         type: String,
         required: true,
-        trime: true,
+        trim: true
     },
     description: { // Text description of listing
         type: String,
