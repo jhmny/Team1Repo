@@ -1,25 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
+//These are files for webpage html rendering at specific URLs
+import HomePage from "./routes/home-page.js";
+import AllUsers from "./routes/all-users.js";
+import AddUser from "./routes/add-user.js";
+import AllListings from "./routes/all-listings.js";
 
 function App() {
+  //Router defines what paths exists, and what files they grab.
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>  
+      <Route path='/' exact component={HomePage}/>
+      <Route path='/users' exact component={AllUsers} />
+      <Route path='/users/add' exact component={AddUser} />
+      <Route path='/listings' exact component={AllListings} />
+    </Router>
   );
 }
 

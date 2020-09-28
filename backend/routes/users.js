@@ -9,12 +9,13 @@ router.route('/').get((req, res) => {
 });
 
 router.route('/add').post((req, res) => {
-    const firstname = req.body.firstname;
-    const lastname = req.body.lastname;
-    const email = req.body.email;
-    const password = req.body.password;
-
-    const newUser = new User({
+    var firstname = req.body.firstname;
+    var lastname = req.body.lastname;
+    var email = req.body.email;
+    var password = req.body.password;
+    //console.log("F: ", firstname, "L: ", lastname, "E: ", email, "P: ", password);
+    
+    var newUser = new User({
         firstname,
         lastname,
         email,
@@ -25,7 +26,6 @@ router.route('/add').post((req, res) => {
     newUser.save()
     .then(() => res.json('User added!'))
     .catch(err => res.status(400).json('Error: ' + err))
-
 });
 
 module.exports = router;
