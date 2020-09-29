@@ -14,7 +14,7 @@ const userSchema = new Schema({
             lowercase: true,
             required: [true, "Can not be blank"],
             minlength : [3, "Name is too short!"],
-            maxlength: 13,
+            maxlength: 15,
             index: true
 
         },
