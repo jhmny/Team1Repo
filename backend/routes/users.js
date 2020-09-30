@@ -51,6 +51,50 @@ router.route('/sign_up').post((req, res) => {
 });
 
 
+router.route('/login').post((req, res) => {
+
+    /*User.findOne({ 'email': req.body.email }, function (err, user) {
+        if (err) return handleError(err);
+        console.log('%s %s is a %s.', user.username, user.firstname,
+            user.lastname, user.password);
+    });*/
+    
+    User.findOne({ 'email': req.body.email }, function (err, user) {
+        if (err) return handleError(err);
+    
+    }).then(function(user) {
+        if(!user) {
+            console.log('not here')
+            res.send('bad');
+        }
+        else {
+            console.log('here');
+            bcrypt.compare(req.body.password, user.password, function (err, result){
+                if(result == true) {
+                    
+                    res.send('users');
+                }
+                else {
+                    res.send('bad');
+                }
+            });
+        }
+        
+    }); 
+
+});
+/*
+router.route('/login').get((req, res) => {
+    res.send('<p>no</p>');
+});
+
+/*router.route('/loggedIn').get((req, res) => {
+    User.findById(req.params.id)
+    .then(users => res.json(users))
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+*/
+
 //We can find a user by the unique id that is given to their account
 router.route('/:id').get((req, res) => {
     User.findById(req.params.id)
