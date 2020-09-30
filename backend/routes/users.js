@@ -54,36 +54,29 @@ router.route('/sign_up').post((req, res) => {
 router.route('/login').post((req, res) => {
     User.findOne({
         where: {
-
             email: req.body.email
-
         }
     
-        
     }).then(function(user) {
         if(!user) {
-
-            res.redirect('/');
-
+            console.log('not here')
+            res.send('bad');
         }
         else {
-
+            console.log('here');
             bcrypt.compare(req.body.password, user.password, function (err, result){
                 if(result == true) {
-
-                    res.send('/' + user.id);
-
-                }
-                else {
-                    res.send('Incorrect password');
-                    res.redirect('/');
-
+                    user
                 }
             });
         }
         
     });
 
+});
+/*
+router.route('/login').get((req, res) => {
+    res.send('<p>no</p>');
 });
 
 /*router.route('/loggedIn').get((req, res) => {

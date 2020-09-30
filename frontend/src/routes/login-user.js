@@ -33,36 +33,27 @@ export default class userLogin extends Component {
             email: this.state.email,
             password: this.state.password
         };
-
-        //David created this on 9/29 for user login!!!
-        /*const userLogin = {
-
-            email: this.state.email,
-            password: this.state.password
-
-        };
-        */
-
-        //console.log(NewUser);.
-
-        //David created this on 9/29
+ 
         axios.post('http://localhost:4000/users/login', userLogin)
-            .then(res => console.log(res.data));
-            
+            .then(response => {
+                if (response.data === "good"){
+                    window.location = 'http://localhost:3000/good';
+                }
+                else{
+                    window.location = 'http://localhost:3000/bad';
+                }
+            })
+
+            //window.location = ('http://localhost:4000' +
+
+            /*
         axios.get('http://localhost:4000/users')
             .then(response => {
                 this.setState({
-                    
                     users: response.data
-
                 });
             })
-
-            .catch((error) => {
-                console.log(error);
-
-            })
-        //window.location = '/users'; //redirects page
+            */
     }
 
     render(){
