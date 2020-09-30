@@ -51,6 +51,48 @@ router.route('/sign_up').post((req, res) => {
 });
 
 
+router.route('/login').post((req, res) => {
+    User.findOne({
+        where: {
+
+            email: req.body.email
+
+        }
+    
+        
+    }).then(function(user) {
+        if(!user) {
+
+            res.redirect('/');
+
+        }
+        else {
+
+            bcrypt.compare(req.body.password, user.password, function (err, result){
+                if(result == true) {
+
+                    res.send('/' + user.id);
+
+                }
+                else {
+                    res.send('Incorrect password');
+                    res.redirect('/');
+
+                }
+            });
+        }
+        
+    });
+
+});
+
+/*router.route('/loggedIn').get((req, res) => {
+    User.findById(req.params.id)
+    .then(users => res.json(users))
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+*/
+
 //We can find a user by the unique id that is given to their account
 router.route('/:id').get((req, res) => {
     User.findById(req.params.id)

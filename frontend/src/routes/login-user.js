@@ -1,36 +1,20 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-export default class AddUser extends Component {
+export default class userLogin extends Component {
     constructor(props) {
         super(props);
 
-        this.onChangeFirstName = this.onChangeFirstName.bind(this);
-        this.onChangeLastName = this.onChangeLastName.bind(this);
         this.onChangeEmail = this.onChangeEmail.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
-            firstname: '',
-            lastname: '',
             email: '',
             password: ''
         }
     }
-
-    onChangeFirstName(e) {
-        this.setState({
-            firstname: e.target.value
-        })
-    }
-
-    onChangeLastName(e) {
-        this.setState({
-            lastname: e.target.value
-        })
-    }
-
+  
     onChangeEmail(e) {
         this.setState({
             email: e.target.value
@@ -45,44 +29,48 @@ export default class AddUser extends Component {
 
     onSubmit(e){
         e.preventDefault();
-        const NewUser = {
-            firstname: this.state.firstname,
-            lastname: this.state.lastname,
+        const userLogin = {
             email: this.state.email,
             password: this.state.password
         };
 
+        //David created this on 9/29 for user login!!!
+        /*const userLogin = {
+
+            email: this.state.email,
+            password: this.state.password
+
+        };
+        */
+
         //console.log(NewUser);.
 
-        axios.post('http://localhost:4000/users/add', NewUser)
+        //David created this on 9/29
+        axios.post('http://localhost:4000/users/login', userLogin)
             .then(res => console.log(res.data));
+            
+        axios.get('http://localhost:4000/users')
+            .then(response => {
+                this.setState({
+                    
+                    users: response.data
 
-        window.location = '/users'; //redirects page
+                });
+            })
+
+            .catch((error) => {
+                console.log(error);
+
+            })
+        //window.location = '/users'; //redirects page
     }
 
     render(){
         return(
             <div>
-                <h3>Create New User</h3>
+                <h3>Login In!</h3>
                 <form onSubmit={this.onSubmit}>
-                    <div className="form-group">
-                        <label>First Name: </label>
-                        <input type="text"
-                            required
-                            className="form-control"
-                            value={this.state.firstname}
-                            onChange={this.onChangeFirstName}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Last Name: </label>
-                        <input type="text"
-                            required
-                            className="form-control"
-                            value={this.state.lastname}
-                            onChange={this.onChangeLastName}
-                        />
-                    </div>
+                    
                     <div className="form-group">
                         <label>Email: </label>
                         <input type="text"
@@ -103,7 +91,7 @@ export default class AddUser extends Component {
                     </div>
 
                     <div className="form-group">
-                        <input type="submit" value="Create New User" className="btn btn-primary" />
+                        <input type="submit" value="Login" className="btn btn-primary" />
                     </div>
                 </form>
             </div>
