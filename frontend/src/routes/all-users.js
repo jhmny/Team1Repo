@@ -3,7 +3,6 @@ import axios from 'axios';
 
 const User = props => (
     <tr>
-        <td>{props.user.username}</td>
         <td>{props.user.firstname}</td>
         <td>{props.user.lastname}</td>
         <td>{props.user.email}</td>
@@ -43,7 +42,6 @@ export default class AllUsers extends Component {
                 <h3>Users</h3>
                 <table className="table">
                     <tr>
-                        <th>Username</th>
                         <th>FirstName</th>
                         <th>LastName</th>
                         <th>Email</th>
