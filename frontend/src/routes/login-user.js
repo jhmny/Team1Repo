@@ -39,21 +39,10 @@ export default class userLogin extends Component {
                 if (response.data === "good"){
                     window.location = 'http://localhost:3000/good';
                 }
-                else{
+                else if (response.data === "bad"){
                     window.location = 'http://localhost:3000/bad';
                 }
             })
-
-            //window.location = ('http://localhost:4000' +
-
-            /*
-        axios.get('http://localhost:4000/users')
-            .then(response => {
-                this.setState({
-                    users: response.data
-                });
-            })
-            */
     }
 
     render(){

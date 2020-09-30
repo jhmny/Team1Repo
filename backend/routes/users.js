@@ -52,10 +52,15 @@ router.route('/sign_up').post((req, res) => {
 
 
 router.route('/login').post((req, res) => {
-    User.findOne({
-        where: {
-            email: req.body.email
-        }
+
+    /*User.findOne({ 'email': req.body.email }, function (err, user) {
+        if (err) return handleError(err);
+        console.log('%s %s is a %s.', user.username, user.firstname,
+            user.lastname, user.password);
+    });*/
+    
+    User.findOne({ 'email': req.body.email }, function (err, user) {
+        if (err) return handleError(err);
     
     }).then(function(user) {
         if(!user) {
@@ -66,12 +71,13 @@ router.route('/login').post((req, res) => {
             console.log('here');
             bcrypt.compare(req.body.password, user.password, function (err, result){
                 if(result == true) {
-                    user
+                    res.send('good');
+                    //user
                 }
             });
         }
         
-    });
+    }); 
 
 });
 /*
