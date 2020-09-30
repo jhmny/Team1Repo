@@ -71,8 +71,11 @@ router.route('/login').post((req, res) => {
             console.log('here');
             bcrypt.compare(req.body.password, user.password, function (err, result){
                 if(result == true) {
-                    res.send('good');
-                    //user
+                    
+                    res.send('users');
+                }
+                else {
+                    res.send('bad');
                 }
             });
         }

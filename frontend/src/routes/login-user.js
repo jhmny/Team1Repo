@@ -35,13 +35,8 @@ export default class userLogin extends Component {
         };
  
         axios.post('http://localhost:4000/users/login', userLogin)
-            .then(response => {
-                if (response.data === "good"){
-                    window.location = 'http://localhost:3000/good';
-                }
-                else if (response.data === "bad"){
-                    window.location = 'http://localhost:3000/bad';
-                }
+            .then(response => {  window.location = response.data;
+                
             })
     }
 
