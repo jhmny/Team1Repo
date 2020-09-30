@@ -51,14 +51,15 @@ router.route('/sign_up').post((req, res) => {
 });
 
 
+/*
+This post function allows us to use an existing email and password
+stored in mongodb. We use findOne() function which compares the email
+obtained from the login page with an email in the database.If it exists
+then we check the password the user entered, hash it and then compare it with
+the hashed password in the database.
+*/
 router.route('/login').post((req, res) => {
 
-    /*User.findOne({ 'email': req.body.email }, function (err, user) {
-        if (err) return handleError(err);
-        console.log('%s %s is a %s.', user.username, user.firstname,
-            user.lastname, user.password);
-    });*/
-    
     User.findOne({ 'email': req.body.email }, function (err, user) {
         if (err) return handleError(err);
     
@@ -83,17 +84,7 @@ router.route('/login').post((req, res) => {
     }); 
 
 });
-/*
-router.route('/login').get((req, res) => {
-    res.send('<p>no</p>');
-});
 
-/*router.route('/loggedIn').get((req, res) => {
-    User.findById(req.params.id)
-    .then(users => res.json(users))
-    .catch(err => res.status(400).json('Error: ' + err));
-});
-*/
 
 //We can find a user by the unique id that is given to their account
 router.route('/:id').get((req, res) => {
