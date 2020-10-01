@@ -86,58 +86,37 @@ class signup extends React.Component {
       password: this.state.password,
     };
 
-    //console.log(NewUser);
+    console.log(NewUser);
 
     axios
       .post("http://localhost:4000/users/sign_up", NewUser)
       .then((res) => console.log(res.data));
 
-    window.location = "/users"; //redirects page
+    //window.location = "/users"; //redirects page
   }
 
   render() {
-    const useStyles = makeStyles((theme) => ({
-      paper: {
-        marginTop: theme.spacing(8),
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      },
-      avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
-      },
-      form: {
-        width: "100%", // Fix IE 11 issue.
-        marginTop: theme.spacing(3),
-      },
-      submit: {
-        margin: theme.spacing(3, 0, 2),
-      },
-    }));
-
-    const classes = useStyles();
     return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
+        <div>
+          <Avatar>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <form className={classes.form} noValidate>
+          <form onSubmit={this.onSubmit}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
-                <TextField
+                <TextField //fname
                   autoComplete="fname"
                   name="firstName"
                   variant="outlined"
                   type="text"
                   required
-                  value={this.state.username}
-                  onChange={this.onChangeUsername}
+                  value={this.state.firstname}
+                  onChange={this.onChangeFirstName}
                   fullWidth
                   id="firstName"
                   label="First Name"
@@ -145,10 +124,12 @@ class signup extends React.Component {
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TextField
+                <TextField //lastname
                   variant="outlined"
                   required
                   fullWidth
+                  value={this.state.lastname}
+                  onChange={this.onChangeLastName}
                   id="lastName"
                   label="Last Name"
                   name="lastName"
@@ -156,9 +137,12 @@ class signup extends React.Component {
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField
+                <TextField //email
                   variant="outlined"
+                  type="text"
                   required
+                  value={this.state.email}
+                  onChange={this.onChangeEmail}
                   fullWidth
                   id="email"
                   label="Email Address"
@@ -167,9 +151,26 @@ class signup extends React.Component {
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField
+                <TextField //username
                   variant="outlined"
+                  type="text"
                   required
+                  value={this.state.username}
+                  onChange={this.onChangeUsername}
+                  fullWidth
+                  id="email"
+                  label="Username"
+                  name="email"
+                  autoComplete="email"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField //passwrod
+                  variant="outlined"
+                  type="text"
+                  required
+                  value={this.state.password}
+                  onChange={this.onChangePassword}
                   fullWidth
                   name="password"
                   label="Password"
@@ -188,11 +189,11 @@ class signup extends React.Component {
               </Grid>
             </Grid>
             <Button
+              onSumbit={this.onSubmit}
               type="submit"
               fullWidth
               variant="contained"
               color="primary"
-              className={classes.submit}
             >
               Sign Up
             </Button>
@@ -212,5 +213,23 @@ class signup extends React.Component {
     );
   }
 }
-
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 export default signup;
