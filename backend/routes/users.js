@@ -3,10 +3,19 @@
 //Insomnia was used to test this
 const router = require('express').Router();
 let User = require('../models/user.model');
+require ("dotenv").config();
 
 //This will allow us to encrypt users passwords
 var bcrypt = require('bcrypt');
 //const { route } = require('./listings');
+
+
+/*
+This dependency will be used by front end which will
+allow users to do things on the website only if they
+have successfully signed in and the token verifies this
+*/
+const jwt = require('jsonwebtoken');
 
 //This will add a random salt at the end of our hashed password.
 //Allows for more security the higher it is , but computationally difficult
@@ -73,7 +82,16 @@ router.route('/login').post((req, res) => {
             bcrypt.compare(req.body.password, user.password, function (err, result){
                 if(result == true) {
                     
-                    res.send('users');
+                    //res.send('users');
+                    const token = jwt.sign({id: user._id}, process.env.JWT_SECRET);
+                    res.json({
+                        token,
+                        user: {
+                            id: user._id,
+                            displayName: user.username,
+                            email: user.email,
+                        },
+                    });
                 }
                 else {
                     res.send('bad');
