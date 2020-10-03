@@ -12,6 +12,7 @@ import good from "./routes/good.js";
 import bad from "./routes/bad.js";
 import SignUp from "./routes/sign-up.js";
 import SignIn from "./routes/sign-in.js";
+import item from "./routes/item.js";
 
 function App() {
   //Router defines what paths exists, and what files they grab.
@@ -26,6 +27,7 @@ function App() {
       <Route path="/bad" exact component={bad} />
       <Route path="/signup" exact component={SignUp} />
       <Route path="/signin" exact component={SignIn} />
+      <Route path="/item" exact component={item} />
     </Router>
   );
 }
