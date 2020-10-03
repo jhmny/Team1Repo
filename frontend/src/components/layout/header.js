@@ -49,6 +49,9 @@ export default function Header(props) {
         <Button href="/signup" variant="outlined" size="small">
           Sign up
         </Button>
+        <Button href="/signin" variant="outlined" size="small">
+          Sign in
+        </Button>
       </Toolbar>
       <Toolbar
         component="nav"
