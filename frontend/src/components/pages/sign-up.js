@@ -12,7 +12,6 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import Header from "./header";
 import axios from "axios";
 
 function Copyright() {
@@ -27,18 +26,6 @@ function Copyright() {
     </Typography>
   );
 }
-export const sections = [
-  { title: "Home", url: "/" },
-  { title: "Design", url: "#" },
-  { title: "Culture", url: "#" },
-  { title: "Business", url: "#" },
-  { title: "Politics", url: "#" },
-  { title: "Opinion", url: "#" },
-  { title: "Science", url: "#" },
-  { title: "Health", url: "#" },
-  { title: "Style", url: "#" },
-  { title: "Travel", url: "#" },
-];
 
 class signup extends React.Component {
   constructor(props) {
@@ -113,9 +100,6 @@ class signup extends React.Component {
     return (
       <Container component="main" maxWidth="lg">
         <CssBaseline />
-        <Container maxWidth="lg">
-          <Header title="threadRepo" href="/signin" sections={sections} />
-        </Container>
         <div>
           <Avatar>
             <LockOutlinedIcon />

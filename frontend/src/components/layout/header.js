@@ -71,7 +71,6 @@ export default function Header(props) {
     </React.Fragment>
   );
 }
-
 Header.propTypes = {
   sections: PropTypes.array,
   title: PropTypes.string,
