@@ -140,7 +140,7 @@ export default function Album() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="medium" color="primary">
+                    <Button href = "/item" size="medium" color="primary">
                       Buy
                     </Button>
                   </CardActions>
