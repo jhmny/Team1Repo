@@ -3,11 +3,13 @@
 //Insomnia was used to test this
 const router = require('express').Router();
 let User = require('../models/user.model');
+const auth = require('../middleware/auth');
+//var async = require('async_hooks');
+
 require ("dotenv").config();
 
 //This will allow us to encrypt users passwords
-var bcrypt = require('bcrypt');
-//const { route } = require('./listings');
+const bcrypt = require('bcrypt');
 
 
 /*
@@ -22,16 +24,13 @@ const jwt = require('jsonwebtoken');
 var saltLength = 10;
 
 
-//This is how we will obtain info stored in the database
-router.route('/').get((req, res) => {
-    User.find()
-    .then(user => res.json(user))
-    .catch(err => res.status(400).json('Error: ' + err));
 
-});
+
+/* IDK WHAT THIS IS 
 router.route('/sign_up').get((req, res) => { 
     res.send('ey')
 })
+*/
 
 //Allows people to sign up and this is sent to the database
 router.route('/sign_up').post((req, res) => {          
@@ -74,11 +73,11 @@ router.route('/login').post((req, res) => {
     
     }).then(function(user) {
         if(!user) {
-            console.log('not here')
-            res.send('bad');
+            
+            res.json('Invalid User');
         }
         else {
-            console.log('here');
+
             bcrypt.compare(req.body.password, user.password, function (err, result){
                 if(result == true) {
                     
@@ -94,7 +93,7 @@ router.route('/login').post((req, res) => {
                     });
                 }
                 else {
-                    res.send('bad');
+                    res.json('Invalid email or password');
                 }
             });
         }
@@ -104,19 +103,43 @@ router.route('/login').post((req, res) => {
 });
 
 
-//We can find a user by the unique id that is given to their account
-router.route('/:id').get((req, res) => {
-    User.findById(req.params.id)
-        .then(users => res.json(users))
-        .catch(err => res.status(400).json('Error: ' + err));
-});
 
 //In order to delete a users account we need to have their id
-router.route('/:id').delete((req, res) => {
-    User.findByIdAndDelete(req.params.id)
-        .then(() => res.json('Listing deleted. '))
-        .catch(err => res.status(400).json('Error: ' + err));
+router.delete('/delete', auth, async (req, res) => {
+     await User.findByIdAndDelete(req.user)
+        .then(user => res.json(user))
+        .catch(err =>  res.status(500).json({error: err.message}));
+    
 });
+
+router.post('/tokenIsValid', async (req, res) => {
+    try {
+        const token = req.header("x-auth-token");
+        if(!token) return res.json(false);
+
+        const verified = jwt.verify(token, process.env.JWT_SECRET);
+        if(!verified) return res.json(false);
+
+        const user = await User.findById(verified.id);
+        if(!user) return res.json(false);
+
+        return res.json(true);
+    }
+    catch (err) {
+        res.status(500).json({ err: err.message });
+    }
+});
+
+//We give the token and we are 
+//given the info of the token's user
+router.get('/', auth, async (req, res) => {
+    const user = await User.findById(req.user);
+    res.json ({
+        displayName: user.firstname,
+        id: user._id,
+    });
+});
+
 
 //This is used to update the users profile
 router.route('/update/:id').post((req, res) => {
