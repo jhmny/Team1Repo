@@ -8,6 +8,8 @@ import SearchIcon from "@material-ui/icons/Search";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 
+import AuthOptions from "../auth/AuthOptions";
+
 const useStyles = makeStyles((theme) => ({
   toolbar: {
     borderBottom: `1px solid ${theme.palette.divider}`,
@@ -46,12 +48,7 @@ export default function Header(props) {
         <IconButton>
           <SearchIcon />
         </IconButton>
-        <Button href="/signup" variant="outlined" size="small">
-          Sign up
-        </Button>
-        <Button href="/signin" variant="outlined" size="small">
-          Sign in
-        </Button>
+        <AuthOptions />
       </Toolbar>
       <Toolbar
         component="nav"

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 //These are files for webpage html rendering at specific URLs
 import HomePage from "./components/pages/home-page.js";
 import AllUsers from "./components/pages/all-users.js";
@@ -16,6 +16,7 @@ import Axios from "axios";
 import Header from "./components/layout/header.js";
 
 import UserContext from "./context/UserContext.js";
+import Copyright from "./components/layout/Copyright.js";
 
 export const sections = [
   { title: "Home", url: "/" },
@@ -45,12 +46,13 @@ export default function App() {
         token = "";
       }
       const tokenRes = await Axios.post(
-        "http://localhost:5000/users/tokenIsValid",
+        "http://localhost:4000/users/tokenIsValid",
         null,
         { headers: { "x-auth-token": token } }
       );
+      console.log(tokenRes.data);
       if (tokenRes.data) {
-        const userRes = await Axios.get("http://localhost:5000/users/", {
+        const userRes = await Axios.get("http://localhost:4000/users/", {
           headers: { "x-auth-token": token },
         });
         setUserData({
@@ -61,24 +63,29 @@ export default function App() {
     };
 
     checkLoggedIn();
-  }, []);
+  });
   return (
-    <Router>
-      <UserContext.Provider value={(userData, setUserData)}>
-        <Header title="threadRepo" sections={sections} />
-        <Switch>
-          <Route path="/" exact component={HomePage} />
-          <Route path="/users" exact component={AllUsers} />
-          <Route path="/users/add" exact component={AddUser} />
-          <Route path="/listings" exact component={AllListings} />
-          <Route path="/login" exact component={userLogin} />
-          <Route path="/good" exact component={good} />
-          <Route path="/bad" exact component={bad} />
-          <Route path="/signup" exact component={SignUp} />
-          <Route path="/signin" exact component={SignIn} />
-          <Route path="/item" exact component={item} />
-        </Switch>
-      </UserContext.Provider>
-    </Router>
+    <>
+      <BrowserRouter>
+        <UserContext.Provider value={{ userData, setUserData }}>
+          <Header title="threadRepo" sections={sections} />
+          <div className="container">
+            <Switch>
+              <Route path="/" exact component={HomePage} />
+              <Route path="/users" exact component={AllUsers} />
+              <Route path="/users/add" exact component={AddUser} />
+              <Route path="/listings" exact component={AllListings} />
+              <Route path="/login" exact component={userLogin} />
+              <Route path="/good" exact component={good} />
+              <Route path="/bad" exact component={bad} />
+              <Route path="/signup" exact component={SignUp} />
+              <Route path="/signin" exact component={SignIn} />
+              <Route path="/item" exact component={item} />
+            </Switch>
+          </div>
+          <Copyright />
+        </UserContext.Provider>
+      </BrowserRouter>
+    </>
   );
 }
