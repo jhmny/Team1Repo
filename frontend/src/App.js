@@ -16,6 +16,7 @@ import Axios from "axios";
 import Header from "./components/layout/header.js";
 
 import UserContext from "./context/UserContext.js";
+import Copyright from "./components/layout/Copyright.js";
 
 export const sections = [
   { title: "Home", url: "/" },
@@ -45,12 +46,12 @@ export default function App() {
         token = "";
       }
       const tokenRes = await Axios.post(
-        "http://localhost:5000/users/tokenIsValid",
+        "http://localhost:3000/users/tokenIsValid",
         null,
         { headers: { "x-auth-token": token } }
       );
       if (tokenRes.data) {
-        const userRes = await Axios.get("http://localhost:5000/users/", {
+        const userRes = await Axios.get("http://localhost:3000/users/", {
           headers: { "x-auth-token": token },
         });
         setUserData({
@@ -66,6 +67,7 @@ export default function App() {
     <Router>
       <UserContext.Provider value={(userData, setUserData)}>
         <Header title="threadRepo" sections={sections} />
+
         <Switch>
           <Route path="/" exact component={HomePage} />
           <Route path="/users" exact component={AllUsers} />
@@ -78,6 +80,8 @@ export default function App() {
           <Route path="/signin" exact component={SignIn} />
           <Route path="/item" exact component={item} />
         </Switch>
+
+        <Copyright />
       </UserContext.Provider>
     </Router>
   );
