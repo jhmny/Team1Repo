@@ -16,6 +16,8 @@ const useStyles = makeStyles((theme) => ({
   },
   toolbarTitle: {
     flex: 1,
+    fontSize: 40,
+    fontFamily: "Brush Script MT, Brush Script Std, cursive",
   },
   toolbarSecondary: {
     justifyContent: "space-between",
