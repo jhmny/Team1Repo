@@ -8,8 +8,8 @@ export default function AuthOptions() {
 
   const history = useHistory();
 
-  const register = () => history.push("/sign-up");
-  const login = () => history.push("/login-in");
+  const register = () => history.push("/signup");
+  const login = () => history.push("/signin");
   const logout = () => {
     setUserData({
       token: undefined,
@@ -17,15 +17,14 @@ export default function AuthOptions() {
     });
     localStorage.setItem("auth-token", "");
   };
-
   return (
     <nav className="auth-options">
       {userData.user ? (
-        <Button onClick={logout}>Log out</Button>
+        <button onClick={logout}>Log out</button>
       ) : (
         <>
-          <Button onClick={register}>Register</Button>
-          <Button onClick={login}>Log in</Button>
+          <button onClick={register}>Register</button>
+          <button onClick={login}>Log in</button>
         </>
       )}
     </nav>
