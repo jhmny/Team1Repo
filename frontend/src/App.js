@@ -62,7 +62,7 @@ export default function App() {
     };
 
     checkLoggedIn();
-  });
+  }, []);
   return (
     <>
       <BrowserRouter>
