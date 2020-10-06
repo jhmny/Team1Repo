@@ -41,14 +41,20 @@ router.route('/sign_up').post((req, res) => {
     const firstname = req.body.firstname;
     const lastname = req.body.lastname;
     const email = req.body.email;
-    const password = hash; //hash;
+    const password = req.body.password; //hash;
+
+    if(password.length < 8){
+        return res
+        .status(400)
+        .json({msg: "Password needs to be greater than 8 characters long"});
+    }
 
     const newUser = new User({
         username,
         firstname,
         lastname,
         email,
-        password
+        password: hash
     });
 
     newUser.save()

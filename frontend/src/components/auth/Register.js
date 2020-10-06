@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import UserContext from "../../context/UserContext";
 import Axios from "axios";
+import ErrorNotice from "../misc/ErrorNotice";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -23,6 +24,8 @@ export default function Register() {
   const [username, setusername] = useState();
   const [password, setpassword] = useState();
 
+  const [error, setError] = useState();
+
   const { setUserData } = useContext(UserContext);
   const history = useHistory();
 
@@ -42,8 +45,7 @@ export default function Register() {
       localStorage.setItem("auth-token", loginRes.data.token);
       history.push("/");
     } catch (err) {
-      console.log("pogchamp error");
-      // err.response.data.msg(err.response.data.msg);
+      err.response.data.msg && setError(err.response.data.msg);
     }
   };
 
@@ -57,6 +59,7 @@ export default function Register() {
         <Typography component="h1" variant="h5">
           Register
         </Typography>
+
         <form onSubmit={onSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
