@@ -39,6 +39,39 @@ Those technologies being MongoDB, Express.js, React, and Node.js.
 Using these Four technolgies we will full create our website, with all features listed in Scope.
 We go into further details in section 2. Description. 
 
+
+
+
+
+--------------------                     --------------------                    
+-                  -                     -                  -
+-                  -                     -                  -
+-    CLIENT        -     <------>        -                  -
+-                  -                     -                  -                       ----------------
+-                  -                     -                  -                     -     DATABASE     -    
+--------------------                     -     SERVER       -   <-------->          ----------------
+-                  -                     -                  -                       ----------------
+-                  -                     -                  -                     -     DATABASE     -  
+-    CLIENT        -     <------>        -                  -                       ----------------  
+-                  -                     -                  -
+-                  -                     -                  -
+--------------------                     --------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 4. Prioritization
 The order of priority for threadRepo starts with establishing a functional main webpage, this 
 means having a properly layed out design for the site.  There will be some examples of listings
