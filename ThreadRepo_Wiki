@@ -40,36 +40,107 @@ Using these Four technolgies we will full create our website, with all features 
 We go into further details in section 2. Description. 
 
 
+2. DESCRIPTION
+-----------------
 
+2.1 Product Components
 
-
+This is the basic layout of how our clients will access the database.
 --------------------                     --------------------                    
 -                  -                     -                  -
 -                  -                     -                  -
--    CLIENT        -     <------>        -                  -
+-     CLIENT       -     <------>        -                  -
 -                  -                     -                  -                       ----------------
 -                  -                     -                  -                     -     DATABASE     -    
 --------------------                     -     SERVER       -   <-------->          ----------------
 -                  -                     -                  -                       ----------------
 -                  -                     -                  -                     -     DATABASE     -  
--    CLIENT        -     <------>        -                  -                       ----------------  
+-     CLIENT       -     <------>        -                  -                       ----------------  
 -                  -                     -                  -
 -                  -                     -                  -
 --------------------                     --------------------
 
 
+2.1.1 The Client
+The client is our website we created.  This will be responsible for allowing users to
+access features on the website which will only be available after they have logged in.
+The ability to access these features is done by a user interface which is implemented using
+React (Javascript library) and Material-Ui (A React UI Framework).  These will help our web
+development process become faster and easier, while creating an aesthetically pleasing web site for 
+our users.
+
+2.1.2 The Server
+The server is placed between the client and the database.  Here is where we handle user requests.
+This is done by using routes that send and recieve information from the client to the webserver where 
+our data is then saved in the database.  When a user decides to login or register , this is sent to the 
+server side which is connected to the database.The server will also handle any errors that become 
+present and are redirected to the client if it is relevant.  Node js and Express js are the server 
+side programming languages we are using. 
+
+2.1.3 The Database
+MongoDB will be the database that holds our user's information as well as the listings they create.
+The user needs to authenticate themselves to access the stored user data in the database, and this is done
+by signing in where we will compare the hashed password in the database with the password they input in the front
+end(sign in page of website).  As the creators of the website we are able to alter the stored data in the user 
+base if needed. This includes altering the specific properties of a listing to deleting an account.
+
+
+Example Storage of user account & listing in mongoDB :
+
+id: {abclesajip1k3il3234k}
+"username": "Iloveclothes",
+"firstname": "Bob",
+"lastname": "Billy",
+"email": "ilclothes@gmail.com",
+"password": " *hashed* "
+
+
+id: {1oslxeiaosphjs2123o}
+"username": "Iloveclothes",
+"name" : "Bob Billy",
+"description": "Pants with tears",
+"size": "S",
+"color": "light blue",
+"condition": "new",
+"price": "$15"
 
 
 
+Example User login:
+
+emai:
+----------------------------
+-   ilclothes@gmail.com    -   
+----------------------------
+
+password:
+----------------------------
+-    •••••••••••           -
+----------------------------
 
 
 
+Example listing:
 
+------------------------------
+-           :)               -
+-      -  - _ _  -  -        -
+-    -  -I      I -  -      -
+-   -  - I      I   - -       -
+-        I      I            -
+-        I------I            -
+-                            -
+-   BUY                      -
+------------------------------
 
+2.2 Users
+This website will have a user and an admin.  The user will need functionality 
+that is provided from the client.  Some examples include creating an account,
+logging in, creating a list, changing profile page.  The users will also need
+functionality for communicating with sellers, which the server will need to do
+in order transfer the messsage between users.
 
-
-
-
+-----------------------------------------------------------------------
 
 
 4. Prioritization
