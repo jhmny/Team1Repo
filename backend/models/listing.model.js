@@ -3,20 +3,21 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const listingSchema = new Schema({
-    username: { // The user who listed it
-        type: String,
-        required: true,
-        trim: true
+    username: { // The user who listed it (ref User model)
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     },
     name: { // Name of the listing
         type: String,
         required: true,
-        trim: true
+        trim: true,
+        maxlength: 75
     },
     description: { // Text description of listing
         type: String,
         required: true,
-        trim: true
+        trim: true,
+        maxlength: 200
     },
     size: { // The size of the listing 
         type: String,
@@ -35,15 +36,9 @@ const listingSchema = new Schema({
     },
     price: {  // The price of the listing
         type: Number, 
-        required: true
-    }, 
-    //likes: { type: Number }, // How many likes there are for listing
-    /*
-    date: { // The date it was created
-        type: Date, 
-        default: Date.now
-    }
-    */
+        required: true,
+        default: 0
+    },
 },  {
     timestamps: true,
 })
