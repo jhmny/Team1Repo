@@ -7,6 +7,7 @@ import AddUser from "./components/pages/add-user.js";
 import AllListings from "./components/pages/all-listings.js";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
+import AddItem from "./components/pages/addItem.js";
 
 import good from "./components/pages/good.js";
 import bad from "./components/pages/bad.js";
@@ -23,7 +24,7 @@ export const sections = [
   { title: "Pants", url: "#" },
   { title: "Shoes", url: "#" },
   { title: "Hamsters ", url: "#" },
-  { title: " ", url: "#" },
+  { title: "Add Item", url: "/addItem" },
   { title: " ", url: "#" },
   { title: " ", url: "#" },
   { title: " ", url: "#" },
@@ -79,6 +80,7 @@ export default function App() {
               <Route path="/item" exact component={item} />
               <Route path="/login" exact component={Login} />
               <Route path="/register" exact component={Register} />
+              <Route path="/addItem" exact component={AddItem} />
             </Switch>
           </div>
           <Copyright />

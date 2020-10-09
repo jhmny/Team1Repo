@@ -15,8 +15,8 @@ router.route('/add').post((req, res) => {
     const color = req.body.color;
     const condition = req.body.condition;
     const price = Number(req.body.price);
-    const likes = Number(req.body.likes);
-    const date = Date.parse(req.body.date);
+    //const likes = Number(req.body.likes);
+    //const date = Date.parse(req.body.date);
 
 
     const newListing = new Listing({
@@ -27,9 +27,11 @@ router.route('/add').post((req, res) => {
         color,
         condition,
         price,
-        likes,
-        date,
+        //likes,
+        //date,
     });
+
+    console.log(newListing);
 
     newListing.save()
     .then(() => res.json('Listing added!'))
