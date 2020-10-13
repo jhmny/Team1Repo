@@ -16,6 +16,10 @@ export default function AuthOptions() {
       user: undefined,
     });
     localStorage.setItem("auth-token", "");
+    localStorage.setItem("id", "");
+    localStorage.setItem("username", "");
+    localStorage.setItem("email", "");
+    history.push("/");
   };
   return (
     <nav className="auth-options">

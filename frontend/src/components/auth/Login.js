@@ -36,6 +36,9 @@ export default function Login() {
         user: loginRes.data.user,
       });
       localStorage.setItem("auth-token", loginRes.data.token);
+      localStorage.setItem("id", loginRes.data.user.id);
+      localStorage.setItem("username", loginRes.data.user.displayName);
+      localStorage.setItem("email", loginRes.data.user.email);
       history.push("/");
     } catch (err) {
       // err.response.data.msg && setError(err.response.data.msg);

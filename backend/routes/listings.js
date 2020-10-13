@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const multer = require('multer');
 let Listing = require('../models/listing.model');
 
 router.route('/').get((req, res) => {
@@ -16,8 +17,10 @@ router.route('/add').post((req, res) => {
     const condition = req.body.condition;
     const price = Number(req.body.price);
     const likes = Number(req.body.likes);
-    const date = Date.parse(req.body.date);
+    const date = req.body.date;
+    //const date = Date.parse(req.body.date);
 
+    console.log(username + " " + name + " " + description + " " + size + " " + color + " " + condition + " " + price + " " + likes + " " + date);
 
     const newListing = new Listing({
         username,
@@ -31,9 +34,21 @@ router.route('/add').post((req, res) => {
         date,
     });
 
+    console.log(newListing);
+
     newListing.save()
-    .then(() => res.json('Listing added!'))
+      .then(() => console.log('good')) //(res.send('/listings/byuser'))
     .catch(err => res.status(400).json('Error: ' + err));
+});
+
+router.route('/byuser').post((req, res) => {
+  User.find({ 'username': req.body.username }, function (err, listings) {
+    if (err) { console.log("bad");}
+  }).then(function (listings) {
+    console.log("good");
+      res.json(listings);
+      console.log(listings);
+  }); 
 });
 
 router.route('/:id').get((req, res) => {
@@ -64,6 +79,34 @@ router.route('/update/:id').post((req, res) => {
             .catch(err => res.status(400).json('Error: ' + err));
       })
       .catch(err => res.status(400).json('Error: ' + err));
+});
+
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, '/public/listing-images')
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' + file.fieldname)
+  },
+  fileFilter(req, file, cb) {
+    ext = file.filename.str.slice(-4);
+    if (ext == '.jpg' || ext == '.png') {
+      cb(null, true)
+    }
+    else {
+      cb(res.send('File save Error'), false)
+    }
+  }
+})
+
+var upload = multer({ storage: storage });
+
+router.route('/upload').post((req, res) => {
+  upload(req, res, err => {
+    if (err) {return res.status(400).json('Error: ' + err)}
+    return res.json('Uploaded image');
+  })
 });
 
 module.exports = router;
