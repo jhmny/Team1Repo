@@ -12,7 +12,7 @@ const Listing = props => (
         <td>{props.listing.color}</td>
         <td>{props.listing.condition}</td>
         <td>{props.listing.price}</td>
-        <td>{props.listing.likes}</td>
+        <td>{props.listing._id}</td>
     </tr>
 )//<td>{props.listing.date}</td>
 /*
@@ -57,6 +57,7 @@ export default class AllListings extends Component {
 
         axios.get('http://localhost:4000/listings', { username: localStorage.getItem('username') })
              .then(response => {
+                console.log(response.data)
                 this.setState({ listings: response.data });
             })
     }
@@ -81,7 +82,7 @@ export default class AllListings extends Component {
                         <th>color</th>
                         <th>condition</th>
                         <th>price</th>
-                        <th>likes</th>
+                        <th>id</th>
                         
                     </tr>
                     <tbody>

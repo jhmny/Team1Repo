@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState, useContext } from "react";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
@@ -8,6 +8,9 @@ import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
 import { Row, Col } from "reactstrap";
 import ImageGallery from "react-image-gallery";
+import axios from 'axios';
+import { useParams } from "react-router-dom";
+//import { param } from "../../../../backend/routes/users";
 
 function Copyright() {
   return (
@@ -58,20 +61,6 @@ const images = [
   },
 ];
 
-const shoeSizes = [
-  // array holding size values
-  { size: 7.5, quantity: 3 },
-  { size: 8, quantity: 5 },
-  { size: 8.5, quantity: 2 },
-  { size: 9, quantity: 20 },
-  { size: 9.5, quantity: 3 },
-  { size: 10, quantity: 1 },
-  { size: 10.5, quantity: 0 },
-  { size: 11, quantity: 10 },
-  { size: 11.5, quantity: 7 },
-  { size: 12, quantity: 300 },
-];
-
 const useStyles = makeStyles((theme) => ({
   title: {
     // title of product
@@ -103,38 +92,42 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default class Listing extends Component {
-  constructor(props) {
-    super(props);
+//let {id} = useParams();
+//console.log(id);
 
-    this.state = {
-      link = "", listings: {
-        username: "",
-        name: "",
-        description: "",
-        size: "",
-        color: "",
-        condition: "",
-        price: "",
-        likes: ""
-      }
-    };
-  }
 
-  componentDidMount() {
-    axios.get('http://localhost:4000/listings/' + link)
+export default function Listing(){
+const [listing, setListing] = useState({});
+
+  /*
+  var listing = {
+    username: "a",
+    name: "b",
+    description: "c",
+    size: "d",
+    color: "e",
+    condition: "f",
+    price: "1",
+    likes: "0"
+  };*/
+
+  let { id } = useParams();
+  console.log(id);
+  
+  useEffect(() =>{
+    axios.get('http://localhost:4000/listings/' + id)
       .then(response => {
-        this.setState({ listings: response.data });
+        setListing(response.data) 
       })
-  }
+      console.log(listing)
+  }, [])
 
-  render(){
     const classes = useStyles();
     return (
       <React.Fragment>
         <CssBaseline />
         <div className={classes.title}>
-          <h1>{listings.name}</h1>
+          <h1>{listing.name}</h1>
         </div>
         <Grid>
           <Row className={classes.rLayout}>
@@ -160,14 +153,14 @@ export default class Listing extends Component {
               <div>
                 {/* price section */}
                 <Row style={{ padding: 10 }}>
-                  <Col>{"Price: " + listing.price}</Col>
+                  <Col>{"Price: $" + listing.price}</Col>
                   <br />
                   <Col>
                     <form>
                       <label>
-                        {"Shoe Size:" + listing.size}
+                        Shoe Size: 
                         <select>
-                          <option></option>
+                          <option>{listing.size}</option>
                         </select>
                       </label>
                     </form>
@@ -177,7 +170,7 @@ export default class Listing extends Component {
                     <form>
                       <label>{"Shoe Quantity: "}</label>
                       <select>
-                        <option></option>
+                        <option>{listing.condition}</option>
                       </select>
                     </form>
                   </Col>
@@ -191,5 +184,4 @@ export default class Listing extends Component {
         </Grid>
       </React.Fragment>
     );
-  }
-}
+};

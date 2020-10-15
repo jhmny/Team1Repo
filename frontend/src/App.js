@@ -9,6 +9,7 @@ import AddListings from "./components/pages/add-listing.js";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 
+import Listing from "./components/pages/itemFromDB.js";
 import item from "./components/pages/item.js";
 import Axios from "axios";
 import Header from "./components/layout/header.js";
@@ -75,6 +76,7 @@ export default function App() {
               <Route path="/listings" exact component={AllListings} />
               <Route path="/listings/create" exact component={AddListings} />
               <Route path="/item" exact component={item} />
+              <Route path="/listing/:id" exact component={Listing} />
               <Route path="/login" exact component={Login} />
               <Route path="/register" exact component={Register} />
             </Switch>

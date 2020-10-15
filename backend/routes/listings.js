@@ -53,7 +53,7 @@ router.route('/byuser').post((req, res) => {
 
 router.route('/:id').get((req, res) => {
     Listing.findById(req.params.id)
-      .then(listings => res.json(listings))
+      .then(listings => res.json(listings))//, console.log(listings)
       .catch(err => res.status(400).json('Error: ' + err));
 });
 
