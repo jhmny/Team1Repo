@@ -18,10 +18,15 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { TextareaAutosize } from "@material-ui/core";
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
 
 export default function Create() {
   const [itemName, setItemName] = useState();
   const [description, setDescription] = useState();
+  const [garmentType, setGarmentType] = useState();
   const [size, setSize] = useState();
   const [color, setColor] = useState();
   const [condition, setCondition] = useState();
@@ -42,21 +47,33 @@ export default function Create() {
         color: color,
         condition: condition,
         price: price,
-        likes: 0,
-        date: new Date() };
-
+        likes: 0
+      };
+      console.log(newListing);
       axios.post('http://localhost:4000/listings/add', newListing)
+  
         //.then(response => { window.location = response.data; })
-      axios.post('http://localhost:4000/listings/add', image)
-        .then(response => { window.location = response.data; })
-      history.push("/");
+      //axios.post('http://localhost:4000/listings/add', image)
+      //  .then(response => { window.location = response.data; })
+      //history.push("/");
     } 
     catch (err) {
       // err.response.data.msg && setError(err.response.data.msg);
     }
   };
 
+  //Selection menu options
+  const garment = ['Upper Garment', 'Lower Garment', 'Footwear'];
+  const garmentSizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+  const shoeSizes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16];
+  const gender = ['Male', 'Female', 'Nonconforming'];
+  const conditions = ['New', 'Like New', 'Used', 'Damaged']
+  const colors = ['Blue', 'Red', 'Yellow', 'Brown', 'White', 'Black', 'Pink',
+                  'Green', 'Purple', 'Orange', 'Gray', 'Beige']
+
   //{setImages(acceptedFiles)}
+
+  //https://material-ui.com/components/text-fields/
   if (localStorage.getItem('auth-token') != "") {
     return (
       <Container component="main" maxWidth="lg">
@@ -67,38 +84,23 @@ export default function Create() {
         </Typography>
           <form onSubmit={onSubmit}>
 
-            <Grid container spacing={3}>
-
-              <Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)} multiple>
-                {({ getRootProps, getInputProps }) => (
-                  <section>
-                    <div {...getRootProps()}>
-                      <input {...getInputProps()} />
-                      <Button variant="outlined">Upload Image</Button>
-                    </div>
-                  </section> //https://react-dropzone.js.org/ Has Material UI stuff
-                )}
-              </Dropzone>
-        
-              <Grid item xs={12}>
-                <TextField //itemName
+              <Grid >
+                <TextField
+                  name="name"
                   variant="outlined"
                   type="text"
                   required
                   value={itemName}
                   onChange={(e) => setItemName(e.target.value)}
                   fullWidth
-                  id="itemName"
-                  label="Item Name"
-                  name="itemName"
-                  autoComplete="itemName"
-                  autoFocus
+                  id="name"
+                  label="Name"
                 />
               </Grid>
 
-              <Grid item xs={12}> 
+              <Grid >
                 <TextareaAutosize //description
-                  rowsMin={3} 
+                  rowsMin={3}
                   placeholder="Description"
                   variant="outlined"
                   type="text"
@@ -109,75 +111,75 @@ export default function Create() {
                   id="description"
                   label="Description"
                   name="description"
-                  autoComplete="description"
-                  autoFocus
                 />
               </Grid>
 
-              <Grid item xs={12}>
-                <TextField //size
-                  variant="outlined"
-                  type="text"
-                  required
-                  value={size}
-                  onChange={(e) => setSize(e.target.value)}
-                  fullWidth
-                  id="size"
-                  label="Size"
-                  name="size"
-                  autoComplete="size"
-                  autoFocus
-                />
-              </Grid>
+              <InputLabel>Size</InputLabel>
+              <Select //Size
+                children
+                labelId="size"
+                id="size"
+                value={size}
+                onChange={(e) => setSize(e.target.value)}
+              >
+                {garmentSizes.map((sizes) => (
+                  <MenuItem key={sizes} value={sizes}>
+                    {sizes}
+                  </MenuItem>
+                ))}
+              </Select>
 
-              <Grid item xs={12}>
-                <TextField //color
-                  variant="outlined"
-                  type="text"
-                  required
-                  value={color}
-                  onChange={(e) => setColor(e.target.value)}
-                  fullWidth
-                  id="color"
-                  label="Color"
-                  name="color"
-                  autoComplete="color"
-                  autoFocus
-                />
-              </Grid>
+              <InputLabel>Color</InputLabel>
+              <Select //Color
+                labelId="condition"
+                id="condition"
+                value={condition}
+                onChange={(e) => setColor(e.target.value)}
+              >
+                {conditions.map((conditions) => (
+                  <MenuItem key={conditions} value={conditions}>
+                    {conditions}
+                  </MenuItem>
+                ))}
+              </Select>
+              
+              <InputLabel>Condition</InputLabel>
+              <Select //Color
+                labelId="color"
+                id="color"
+                value={condition}
+                onChange={(e) => setCondition(e.target.value)}
+              >
+                {colors.map((colors) => (
+                  <MenuItem key={colors} value={colors}>
+                    {colors}
+                  </MenuItem>
+                ))}
+              </Select>
 
-              <Grid item xs={12}>
-                <TextField //condition
+              <Grid >
+                <TextField
+                  name="price"
                   variant="outlined"
-                  type="text"
-                  required
-                  value={condition}
-                  onChange={(e) => setCondition(e.target.value)}
-                  fullWidth
-                  id="condition"
-                  label="Condition"
-                  name="condition"
-                  autoComplete="condition"
-                  autoFocus
-                />
-              </Grid>
-
-              <Grid item xs={12}>
-                <TextField //price
-                  variant="outlined"
-                  type="text"
+                  type="number"
                   required
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
                   fullWidth
                   id="price"
-                  label="Price ($)"
-                  name="price"
-                  autoComplete="price"
-                  autoFocus
+                  label="Price"
                 />
               </Grid>
-            </Grid>
+
+              <Grid>
+                <FormControlLabel
+                  control={
+                    <Checkbox color="primary" />
+                  }
+                  label="I am not a robot"
+                />
+              </Grid>
+
             <Button
               onSubmit={onSubmit}
               type="submit"
@@ -191,7 +193,7 @@ export default function Create() {
           </form>
         </div>
       </Container>
-    )
+      )
   }
   else {
     return (
@@ -206,3 +208,16 @@ export default function Create() {
     )
   }
 }
+
+/*
+<Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)} multiple>
+                {({ getRootProps, getInputProps }) => (
+                  <section>
+                    <div {...getRootProps()}>
+                      <input {...getInputProps()} />
+                      <Button variant="outlined">Upload Image</Button>
+                    </div>
+                  </section> //https://react-dropzone.js.org/ Has Material UI stuff
+                )}
+              </Dropzone>
+*/

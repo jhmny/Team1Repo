@@ -17,10 +17,10 @@ router.route('/add').post((req, res) => {
     const condition = req.body.condition;
     const price = Number(req.body.price);
     const likes = Number(req.body.likes);
-    const date = req.body.date;
+    //const date = req.body.date;
     //const date = Date.parse(req.body.date);
 
-    console.log(username + " " + name + " " + description + " " + size + " " + color + " " + condition + " " + price + " " + likes + " " + date);
+    //console.log(username + " " + name + " " + description + " " + size + " " + color + " " + condition + " " + price + " " + likes);
 
     const newListing = new Listing({
         username,
@@ -30,8 +30,8 @@ router.route('/add').post((req, res) => {
         color,
         condition,
         price,
-        likes,
-        date,
+        likes
+        //date,
     });
 
     console.log(newListing);

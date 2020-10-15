@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const listingSchema = new Schema({
     username: { // The user who listed it (ref User model)
-        type: Schema.Types.ObjectId,
+        type: String, //Schema.Types.ObjectId,
         ref: 'User'
     },
     name: { // Name of the listing

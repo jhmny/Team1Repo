@@ -13,9 +13,8 @@ const Listing = props => (
         <td>{props.listing.condition}</td>
         <td>{props.listing.price}</td>
         <td>{props.listing.likes}</td>
-        <td>{props.listing.date}</td>
     </tr>
-)
+)//<td>{props.listing.date}</td>
 /*
 export default function AllListing() {
     const { userData, setUserData } = useContext(UserContext);
@@ -83,7 +82,7 @@ export default class AllListings extends Component {
                         <th>condition</th>
                         <th>price</th>
                         <th>likes</th>
-                        <th>date</th>
+                        
                     </tr>
                     <tbody>
                         {this.listingsList()}
@@ -93,3 +92,4 @@ export default class AllListings extends Component {
         )
     }
 }
+//<th>date</th>
