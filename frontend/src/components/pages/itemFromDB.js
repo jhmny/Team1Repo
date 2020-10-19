@@ -114,7 +114,13 @@ const [listing, setListing] = useState({});
   let { id } = useParams(); //url 
   console.log(id);
   
- 
+  useEffect(() => {
+    axios.get('http://localhost:4000/listings/' + id)
+      .then(response => {
+        setListing(response.data)
+      })
+    console.log(listing)
+  }, [])
   
 
     const classes = useStyles();
