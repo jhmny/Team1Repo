@@ -39,6 +39,11 @@ const listingSchema = new Schema({
         required: true,
         default: 0
     },
+    price: {  // The price of the listing
+        type: Number,
+        required: true,
+        default: 0
+    },
 },  {
     timestamps: true,
 })

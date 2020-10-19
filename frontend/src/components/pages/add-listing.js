@@ -63,13 +63,13 @@ export default function Create() {
   };
 
   //Selection menu options
-  const garment = ['Upper Garment', 'Lower Garment', 'Footwear'];
+  const garment = ['Upper Thread', 'Lower Thread', 'Footwear'];
   const garmentSizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
   const shoeSizes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16];
   const gender = ['Male', 'Female', 'Nonconforming'];
-  const conditions = ['New', 'Like New', 'Used', 'Damaged']
+  const conditions = ['New', 'Like New', 'Used', 'Damaged'];
   const colors = ['Blue', 'Red', 'Yellow', 'Brown', 'White', 'Black', 'Pink',
-                  'Green', 'Purple', 'Orange', 'Gray', 'Beige']
+    'Green', 'Purple', 'Orange', 'Gray', 'Beige', 'camoflauge', 'tie-dye'];
 
   //{setImages(acceptedFiles)}
 
@@ -83,6 +83,17 @@ export default function Create() {
             Create New Listing
         </Typography>
           <form onSubmit={onSubmit}>
+
+            <Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)} multiple>
+              {({ getRootProps, getInputProps }) => (
+                <section>
+                  <div {...getRootProps()}>
+                    <input {...getInputProps()} />
+                    <Button variant="outlined">Upload Image</Button>
+                  </div>
+                </section> //https://react-dropzone.js.org/ Has Material UI stuff
+              )}
+            </Dropzone>
 
               <Grid >
                 <TextField
@@ -114,8 +125,23 @@ export default function Create() {
                 />
               </Grid>
 
+            <InputLabel>Garment Type</InputLabel>
+              <Select //Size /<children  size/>
+                labelId="garment"
+                id="garment"
+                value={garmentType}
+                onChange={(e) => setGarmentType(e.target.value)}
+              >
+                {garment.map((garments) => (
+                  <MenuItem key={garments} value={garments}>
+                    {garments}
+                  </MenuItem>
+                ))}
+              
+              </Select>
+
               <InputLabel>Size</InputLabel>
-              <Select //Size
+              <Select //Size /
                 children
                 labelId="size"
                 id="size"
@@ -131,13 +157,13 @@ export default function Create() {
 
               <InputLabel>Color</InputLabel>
               <Select //Color
-                labelId="condition"
-                id="condition"
-                value={condition}
+                labelId="color"
+                id="color"
+                value={color}
                 onChange={(e) => setColor(e.target.value)}
               >
-                {conditions.map((conditions) => (
-                  <MenuItem key={conditions} value={conditions}>
+                {colors.map((colors) => (
+                  <MenuItem key={colors} value={colors}>
                     {conditions}
                   </MenuItem>
                 ))}
@@ -145,8 +171,8 @@ export default function Create() {
               
               <InputLabel>Condition</InputLabel>
               <Select //Color
-                labelId="color"
-                id="color"
+                labelId="Condition"
+                id="Condition"
                 value={condition}
                 onChange={(e) => setCondition(e.target.value)}
               >

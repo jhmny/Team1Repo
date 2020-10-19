@@ -7,7 +7,6 @@ export default function MyDropzone() {
 
     
     })
-    multiple
     const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
     return (

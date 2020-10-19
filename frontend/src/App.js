@@ -23,9 +23,9 @@ export const sections = [
   { title: "Pants", url: "#" },
   { title: "Shoes", url: "#" },
   { title: "Hamsters ", url: "#" },
-  { title: " ", url: "#" },
-  { title: " ", url: "#" },
-  { title: " ", url: "#" },
+  { title: "New Listing", url: "/listing/create" },
+  { title: "All Listings", url: "/listing" },
+  { title: "Yeezy", url: "/listing/5f87b8b75a9ba409f9d22269"},
   { title: " ", url: "#" },
   { title: " ", url: "#" },
 ];
@@ -73,8 +73,8 @@ export default function App() {
               <Route path="/" exact component={HomePage} />
               <Route path="/users" exact component={AllUsers} />
               <Route path="/users/add" exact component={AddUser} />
-              <Route path="/listings" exact component={AllListings} />
-              <Route path="/listings/create" exact component={AddListings} />
+              <Route path="/listing" exact component={AllListings} />
+              <Route path="/listing/create" exact component={AddListings} />
               <Route path="/item" exact component={item} />
               <Route path="/listing/:id" exact component={Listing} />
               <Route path="/login" exact component={Login} />
