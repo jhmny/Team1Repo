@@ -7,23 +7,25 @@ import Axios from "axios";
 export default function MyDropzone(props) {
   const [Images, setImages] = useState([]);
   const onDrop = (files) => {
+
     let formData = new FormData();
     const config = {
-      header: { "content-type": "multipart/form-data" },
-    };
-    formData.append("file", files[0]);
-    //save the Image we chose inside the Node Server
-    Axios.post("http://localhost:4000/listings/upload", formData).then(
-      (response) => {
-        if (response.data.success) {
-          setImages([...Images, response.data.image]);
-          props.refreshFunction([...Images, response.data.image]);
-        } else {
-          alert("Failed to save the Image in Server");
-        }
-      }
-    );
-  };
+        header: { 'content-type': 'multipart/form-data' }
+    }
+    formData.append("file", files[0])
+    //save the Image we chose inside the Node Server 
+    Axios.post('http://localhost:4000/listings/upload', formData, config)
+        .then(response => {
+            if (response.data.success) {
+
+                setImages([...Images, response.data.image])
+                props.refreshFunction([...Images, response.data.image])
+
+            } else {
+                alert('Failed to save the Image in Server')
+            }
+        })
+}
   //const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   const onDelete = (image) => {
@@ -38,7 +40,7 @@ export default function MyDropzone(props) {
 
   return (
     <div>
-      <Dropzone onDrop={onDrop} maxSize={800000000} multiple>
+      <Dropzone onDrop={onDrop} maxSize={800000000} multiple ={false}>
         {({ getRootProps, getInputProps }) => (
           <section>
             <div {...getRootProps()}>

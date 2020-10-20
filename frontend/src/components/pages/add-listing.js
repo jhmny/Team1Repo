@@ -31,6 +31,7 @@ export default function Create() {
   const [color, setColor] = useState();
   const [condition, setCondition] = useState();
   const [price, setPrice] = useState();
+  const [Images, setImages] = useState([]);
 
   const { userData, setUserData } = useContext(UserContext);
   const history = useHistory();
@@ -47,6 +48,7 @@ export default function Create() {
         condition: condition,
         price: price,
         likes: 0,
+        images: Images,
       };
       console.log(newListing);
       Axios.post("http://localhost:4000/listings/add", newListing);
@@ -82,6 +84,10 @@ export default function Create() {
     "tie-dye",
   ];
 
+
+  const updateImages = (newImages) => {
+    setImages(newImages)
+}
   //{setImages(acceptedFiles)}
 
   //https://material-ui.com/components/text-fields/
@@ -94,7 +100,7 @@ export default function Create() {
             Create New Listing
           </Typography>
           <form onSubmit={onSubmit}>
-            <MyDropzone />
+            <MyDropzone refreshFunction={updateImages}/>
             <Grid>
               <TextField
                 name="name"

@@ -17,6 +17,7 @@ router.route("/add").post((req, res) => {
   const condition = req.body.condition;
   const price = Number(req.body.price);
   const likes = Number(req.body.likes);
+  cosnt image = req.body.image;
   //const date = req.body.date;
   //const date = Date.parse(req.body.date);
 
@@ -31,6 +32,7 @@ router.route("/add").post((req, res) => {
     condition,
     price,
     likes,
+    image,
     //date,
   });
 
