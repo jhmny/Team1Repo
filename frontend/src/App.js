@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 //These are files for webpage html rendering at specific URLs
 import HomePage from "./components/pages/home-page.js";
 import AllUsers from "./components/pages/all-users.js";
-import AddUser from "./components/pages/add-user.js";
 import AllListings from "./components/pages/all-listings.js";
 import AddListings from "./components/pages/add-listing.js";
 import Login from "./components/auth/Login";
@@ -25,7 +24,7 @@ export const sections = [
   { title: "Hamsters ", url: "#" },
   { title: "New Listing", url: "/listing/create" },
   { title: "All Listings", url: "/listing" },
-  { title: "Yeezy", url: "/listing/5f87b8b75a9ba409f9d22269"},
+  { title: "Yeezy", url: "/listing/5f87b8b75a9ba409f9d22269" },
   { title: " ", url: "#" },
   { title: " ", url: "#" },
 ];
@@ -72,7 +71,6 @@ export default function App() {
             <Switch>
               <Route path="/" exact component={HomePage} />
               <Route path="/users" exact component={AllUsers} />
-              <Route path="/users/add" exact component={AddUser} />
               <Route path="/listing" exact component={AllListings} />
               <Route path="/listing/create" exact component={AddListings} />
               <Route path="/item" exact component={item} />
