@@ -107,7 +107,6 @@ console.log("hello");
 
 
 router.route("/upload").post((req, res) => {
-  console.log("hello WE IN THERE");
   upload(req, res, (err) => {
     if (err) {
       return res.status(400).json("Error: " + err);
