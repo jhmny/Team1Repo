@@ -24,7 +24,7 @@ export const sections = [
   { title: "Hamsters ", url: "#" },
   { title: "New Listing", url: "/listings/create" },
   { title: "All Listings", url: "/listings" },
-  { title: "Yeezy", url: "/listing/5f87b8b75a9ba409f9d22269" },
+  { title: "Yeezy", url: "/listings/5f87b8b75a9ba409f9d22269" },
   { title: " ", url: "#" },
   { title: " ", url: "#" },
 ];

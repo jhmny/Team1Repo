@@ -170,7 +170,7 @@ export default function Create() {
             >
               {colors.map((colors) => (
                 <MenuItem key={colors} value={colors}>
-                  {conditions}
+                  {colors}
                 </MenuItem>
               ))}
             </Select>
@@ -182,9 +182,9 @@ export default function Create() {
               value={condition}
               onChange={(e) => setCondition(e.target.value)}
             >
-              {colors.map((colors) => (
-                <MenuItem key={colors} value={colors}>
-                  {colors}
+              {conditions.map((conditions) => (
+                <MenuItem key={conditions} value={conditions}>
+                  {conditions}
                 </MenuItem>
               ))}
             </Select>
