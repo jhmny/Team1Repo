@@ -154,11 +154,19 @@ export default function Create() {
               value={size}
               onChange={(e) => setSize(e.target.value)}
             >
-              {garmentSizes.map((sizes) => (
-                <MenuItem key={sizes} value={sizes}>
-                  {sizes}
-                </MenuItem>
-              ))}
+              {garmentType == "Footwear" ? (
+                shoeSizes.map((sizes) => (
+                  <MenuItem key={sizes} value={sizes}>
+                    {sizes}
+                  </MenuItem>
+                ))
+              ) : (
+                  garmentSizes.map((sizes) => (
+                    <MenuItem key={sizes} value={sizes}>
+                      {sizes}
+                    </MenuItem>
+                  ))
+                )}
             </Select>
 
             <InputLabel>Color</InputLabel>
