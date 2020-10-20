@@ -9,14 +9,17 @@ export default function MyDropzone(props) {
   const onDrop = (files) => {
 
     let formData = new FormData();
+    //
     const config = {
-        header: { 'content-type': 'multipart/form-data' }
+        header: { 'content-type': 'multipart/form-data' } ,   
     }
+     
     formData.append("file", files[0])
+    console.log("before upload call ");
     Axios.post('http://localhost:4000/listings/upload', formData, config)
         .then(response => {
             if (response.data.success) {
-
+               
                 setImages([...Images, response.data.image])
                 props.refreshFunction([...Images, response.data.image])
 
@@ -26,7 +29,7 @@ export default function MyDropzone(props) {
         })
 }
   //const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
-
+ 
   const onDelete = (image) => {
     const currentIndex = Images.indexOf(image);
 
@@ -39,7 +42,7 @@ export default function MyDropzone(props) {
 
   return (
     <div>
-      <Dropzone onDrop={onDrop} maxSize={800000000} multiple ={false}>
+      <Dropzone onDrop={onDrop} maxSize={9999999999} multiple ={false}>
         {({ getRootProps, getInputProps }) => (
          
             <div {...getRootProps()}>
@@ -59,14 +62,10 @@ export default function MyDropzone(props) {
         }}
       >
         {Images.map((image, index) => (
-          <div onClick={() => onDelete(image)}>
-            <img
-              style={{ minWidth: "300px", width: "300px", height: "240px" }}
-              src={`http://localhost:3000/${image}`}
-              alt={`productImg-${index}`}
-            />
-          </div>
-        ))}
+                    <div onClick={() => onDelete(image)}>
+                        <img   style={{ minWidth: '1px', width: '300px', height: '240px' }} src={`http://localhost:3000/${image}`} alt={`productImg-${index}`} />
+                    </div>
+                ))}
       </div>
     </div>
   );
