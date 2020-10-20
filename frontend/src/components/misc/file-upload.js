@@ -13,7 +13,6 @@ export default function MyDropzone(props) {
         header: { 'content-type': 'multipart/form-data' }
     }
     formData.append("file", files[0])
-    //save the Image we chose inside the Node Server 
     Axios.post('http://localhost:4000/listings/upload', formData, config)
         .then(response => {
             if (response.data.success) {
@@ -42,12 +41,12 @@ export default function MyDropzone(props) {
     <div>
       <Dropzone onDrop={onDrop} maxSize={800000000} multiple ={false}>
         {({ getRootProps, getInputProps }) => (
-          <section>
+         
             <div {...getRootProps()}>
               <input {...getInputProps()} />
               <Button variant="outlined">Upload Image</Button>
             </div>
-          </section> //https://react-dropzone.js.org/ Has Material UI stuff
+          //https://react-dropzone.js.org/ Has Material UI stuff
         )}
       </Dropzone>
 

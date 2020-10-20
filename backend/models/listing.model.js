@@ -39,15 +39,15 @@ const listingSchema = new Schema({
         required: true,
         default: 0
     },
-    likes: {  // The price of the listing
+    price: {  // The price of the listing
         type: Number,
         required: true,
         default: 0
     },
     image : {  // The price of the listing
         type: Array,
-        required: false,
-        default: []
+        required: true,
+        default: [],
     },
 },  {
     timestamps: true,

@@ -86,6 +86,7 @@ export default function Create() {
 
 
   const updateImages = (newImages) => {
+    console.log(newImages) //test
     setImages(newImages)
 }
   //{setImages(acceptedFiles)}

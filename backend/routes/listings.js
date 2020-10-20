@@ -17,7 +17,6 @@ router.route("/add").post((req, res) => {
   const condition = req.body.condition;
   const price = Number(req.body.price);
   const likes = Number(req.body.likes);
-  cosnt image = req.body.image;
   //const date = req.body.date;
   //const date = Date.parse(req.body.date);
 
@@ -32,7 +31,6 @@ router.route("/add").post((req, res) => {
     condition,
     price,
     likes,
-    image,
     //date,
   });
 
@@ -88,23 +86,23 @@ router.route("/update/:id").post((req, res) => {
 });
 
 var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "/uploads");
+  destination: (req, file, cb) => {
+      cb(null, 'uploads/')
   },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.fieldname);
+  filename: (req, file, cb) => {
+      cb(null, `${Date.now()}_${file.originalname}`)
   },
-  fileFilter(req, file, cb) {
-    ext = file.filename.str.slice(-4);
-    if (ext == ".jpg" || ext == ".png") {
-      cb(null, true);
-    } else {
-      cb(res.send("File save Error"), false);
-    }
-  },
-});
+  fileFilter: (req, file, cb) => {
+      const ext = path.extname(file.originalname)
+      if (ext !== '.jpg' || ext !== '.png') {
+          return cb(res.status(400).end('only jpg, png are allowed'), false);
+      }
+      cb(null, true)
+  }
+})
 
-var upload = multer({ storage: storage });
+var upload = multer({ storage: storage }).single("file")
+
 
 router.route("/upload").post((req, res) => {
   upload(req, res, (err) => {
