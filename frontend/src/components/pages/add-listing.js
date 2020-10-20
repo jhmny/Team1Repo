@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import UserContext from "../../context/UserContext";
-import axios from "axios";
+import Axios from "axios";
 import Dropzone from "react-dropzone";
-//import MyDropzone from "../misc/file-upload.js";
+import MyDropzone from "../misc/file-upload.js";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -31,7 +31,6 @@ export default function Create() {
   const [color, setColor] = useState();
   const [condition, setCondition] = useState();
   const [price, setPrice] = useState();
-  const [image, setImages] = useState([]);
 
   const { userData, setUserData } = useContext(UserContext);
   const history = useHistory();
@@ -50,7 +49,7 @@ export default function Create() {
         likes: 0,
       };
       console.log(newListing);
-      axios.post("http://localhost:4000/listings/add", newListing);
+      Axios.post("http://localhost:4000/listings/add", newListing);
 
       //.then(response => { window.location = response.data; })
       //axios.post('http://localhost:4000/listings/add', image)
@@ -65,7 +64,6 @@ export default function Create() {
   const garment = ["Upper Thread", "Lower Thread", "Footwear"];
   const garmentSizes = ["XS", "S", "M", "L", "XL", "XXL"];
   const shoeSizes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16];
-  const gender = ["Male", "Female", "Nonconforming"];
   const conditions = ["New", "Like New", "Used", "Damaged"];
   const colors = [
     "Blue",
@@ -96,20 +94,7 @@ export default function Create() {
             Create New Listing
           </Typography>
           <form onSubmit={onSubmit}>
-            <Dropzone
-              onDrop={(acceptedFiles) => console.log(acceptedFiles)}
-              multiple
-            >
-              {({ getRootProps, getInputProps }) => (
-                <section>
-                  <div {...getRootProps()}>
-                    <input {...getInputProps()} />
-                    <Button variant="outlined">Upload Image</Button>
-                  </div>
-                </section> //https://react-dropzone.js.org/ Has Material UI stuff
-              )}
-            </Dropzone>
-
+            <MyDropzone />
             <Grid>
               <TextField
                 name="name"
