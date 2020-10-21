@@ -52,9 +52,8 @@ export default function Create() {
         images: Images,
       };
       console.log(newListing);
-      Axios.post("http://localhost:4000/listings/add", newListing);
-
-      //.then(response => { window.location = response.data; })
+      Axios.post("http://localhost:4000/listings/add", newListing)
+        .then(response => { window.location = response.data; });
       //axios.post('http://localhost:4000/listings/add', image)
       //  .then(response => { window.location = response.data; })
       //history.push("/");

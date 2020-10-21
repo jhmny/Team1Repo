@@ -19,6 +19,7 @@ router.route("/add").post((req, res) => {
   const price = Number(req.body.price);
   const likes = Number(req.body.likes);
   const sold = false;
+  var link = " ";
   //const date = req.body.date;
   //const date = Date.parse(req.body.date);
 
@@ -41,7 +42,12 @@ router.route("/add").post((req, res) => {
 
   newListing
     .save()
-    .then(() => console.log("good")) //(res.send('/listings/byuser'))
+    /*
+    (function (err, list) {
+      console.log(list.) //link = list.id
+    })
+    */
+    .then(() => res.send(newListing.id)) //(res.send('/listings/byuser'))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
