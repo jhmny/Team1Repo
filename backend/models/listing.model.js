@@ -19,6 +19,11 @@ const listingSchema = new Schema({
         trim: true,
         maxlength: 200
     },
+    category: {  // The price of the listing
+        type: String,
+        required: true,
+        trim: true
+    },
     size: { // The size of the listing 
         type: String,
         required: true,
@@ -37,11 +42,13 @@ const listingSchema = new Schema({
     price: {  // The price of the listing
         type: Number, 
         required: true,
+        min: 0,
         default: 0
     },
-    price: {  // The price of the listing
+    likes: {  // The price of the listing
         type: Number,
         required: true,
+        min: 0,
         default: 0
     },
     image : {  // The price of the listing
@@ -49,6 +56,12 @@ const listingSchema = new Schema({
         required: true,
         default: [],
     },
+    sold: {  // The price of the listing
+        type: Boolean,
+        required: true,
+        default: false
+    },
+
 },  {
     timestamps: true,
 })

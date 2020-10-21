@@ -43,6 +43,7 @@ export default function Create() {
         username: localStorage.getItem("username"),
         name: itemName,
         description: description,
+        category: garmentType,
         size: size,
         color: color,
         condition: condition,
@@ -80,8 +81,8 @@ export default function Create() {
     "Orange",
     "Gray",
     "Beige",
-    "camoflauge",
-    "tie-dye",
+    "Camoflauge",
+    "Tie-Dye",
   ];
 
 
