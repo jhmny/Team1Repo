@@ -36,6 +36,8 @@ export default function Create() {
   const { userData, setUserData } = useContext(UserContext);
   const history = useHistory();
 
+
+
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -51,6 +53,13 @@ export default function Create() {
         likes: 0,
         images: Images,
       };
+      
+      if( !itemName || !description ||!garmentType || !size||
+        !color || !condition || !price || !Images)
+        {
+          return alert('fill all the fields first!')
+        }
+
       console.log(newListing);
       Axios.post("http://localhost:4000/listings/add", newListing)
         .then(response => { window.location = response.data; });
