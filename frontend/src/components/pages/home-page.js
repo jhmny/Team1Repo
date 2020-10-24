@@ -119,11 +119,12 @@ export default function Album() {
                       <Typography gutterBottom variant="h5" component="h2">
                         {item.name}
                       </Typography>
-                      <Typography>Buy me</Typography>
+                      <Typography>{item.description}</Typography>
+                      
                     </CardContent>
                     <CardActions>
-                      <Button href="/item" size="medium" color="primary">
-                        Buy
+                      <Button href ={"/listing/" + item._id} size="medium" color="primary">
+                        Buy ${item.price}
                       </Button>
                     </CardActions>
                   </Card>

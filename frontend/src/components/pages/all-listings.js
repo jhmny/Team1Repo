@@ -1,5 +1,6 @@
 import React, { useContext, Component } from "react";
 import axios from 'axios';
+import Button from "@material-ui/core/Button";
 //import { useHistory } from "react-router-dom";
 //import UserContext from "../../context/UserContext";
 
@@ -12,7 +13,11 @@ const Listing = props => (
         <td>{props.listing.color}</td>
         <td>{props.listing.condition}</td>
         <td>{props.listing.price}</td>
-        <td>{props.listing._id}</td>
+        <td>{
+        <Button href={"/listing/" + props.listing._id} size="medium" color="primary">
+            {props.listing._id}
+        </Button>
+        }</td>
     </tr>
 )//<td>{props.listing.date}</td>
 /*
