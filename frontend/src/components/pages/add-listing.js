@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import UserContext from "../../context/UserContext";
-import axios from 'axios';
-import Dropzone from 'react-dropzone';
-//import MyDropzone from "../misc/file-upload.js";
+import Axios from "axios";
+import Dropzone from "react-dropzone";
+import MyDropzone from "../misc/file-upload.js";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -18,10 +18,10 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { TextareaAutosize } from "@material-ui/core";
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
 
 export default function Create() {
   const [itemName, setItemName] = useState();
@@ -31,10 +31,12 @@ export default function Create() {
   const [color, setColor] = useState();
   const [condition, setCondition] = useState();
   const [price, setPrice] = useState();
-  const [image, setImages] = useState([]);
+  const [Images, setImages] = useState([]);
 
-  const { setUserData } = useContext(UserContext);
+  const { userData, setUserData } = useContext(UserContext);
   const history = useHistory();
+
+
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -43,142 +45,187 @@ export default function Create() {
         username: localStorage.getItem("username"),
         name: itemName,
         description: description,
+        category: garmentType,
         size: size,
         color: color,
         condition: condition,
         price: price,
-        likes: 0
+        likes: 0,
+        images: Images,
       };
+      
+      if( !itemName || !description ||!garmentType || !size||
+        !color || !condition || !price || !Images)
+        {
+          return alert('fill all the fields first!')
+        }
+
       console.log(newListing);
-      axios.post('http://localhost:4000/listings/add', newListing)
-  
-        //.then(response => { window.location = response.data; })
+      Axios.post("http://localhost:4000/listings/add", newListing)
+        .then(response => { window.location = response.data; });
       //axios.post('http://localhost:4000/listings/add', image)
       //  .then(response => { window.location = response.data; })
       //history.push("/");
-    } 
-    catch (err) {
+    } catch (err) {
       // err.response.data.msg && setError(err.response.data.msg);
     }
   };
 
   //Selection menu options
-  const garment = ['Upper Garment', 'Lower Garment', 'Footwear'];
-  const garmentSizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+  const garment = ["Upper Thread", "Lower Thread", "Footwear"];
+  const garmentSizes = ["XS", "S", "M", "L", "XL", "XXL"];
   const shoeSizes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16];
-  const gender = ['Male', 'Female', 'Nonconforming'];
-  const conditions = ['New', 'Like New', 'Used', 'Damaged']
-  const colors = ['Blue', 'Red', 'Yellow', 'Brown', 'White', 'Black', 'Pink',
-                  'Green', 'Purple', 'Orange', 'Gray', 'Beige']
+  const conditions = ["New", "Like New", "Used", "Damaged"];
+  const colors = [
+    "Blue",
+    "Red",
+    "Yellow",
+    "Brown",
+    "White",
+    "Black",
+    "Pink",
+    "Green",
+    "Purple",
+    "Orange",
+    "Gray",
+    "Beige",
+    "Camoflauge",
+    "Tie-Dye",
+  ];
 
+
+  const updateImages = (newImages) => {
+    console.log(newImages) //test
+    setImages(newImages)
+}
   //{setImages(acceptedFiles)}
 
   //https://material-ui.com/components/text-fields/
-  if (localStorage.getItem('auth-token') != "") {
+  if (userData.user) {
     return (
       <Container component="main" maxWidth="lg">
         <CssBaseline />
         <div>
           <Typography component="h1" variant="h5">
             Create New Listing
-        </Typography>
+          </Typography>
           <form onSubmit={onSubmit}>
+            <MyDropzone refreshFunction={updateImages}/>
+            <Grid>
+              <TextField
+                name="name"
+                variant="outlined"
+                type="text"
+                required
+                value={itemName}
+                onChange={(e) => setItemName(e.target.value)}
+                fullWidth
+                id="name"
+                label="Name"
+              />
+            </Grid>
 
-              <Grid >
-                <TextField
-                  name="name"
-                  variant="outlined"
-                  type="text"
-                  required
-                  value={itemName}
-                  onChange={(e) => setItemName(e.target.value)}
-                  fullWidth
-                  id="name"
-                  label="Name"
-                />
-              </Grid>
+            <Grid>
+              <TextareaAutosize //description
+                rowsMin={3}
+                placeholder="Description"
+                variant="outlined"
+                type="text"
+                required
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                fullWidth
+                id="description"
+                label="Description"
+                name="description"
+              />
+            </Grid>
 
-              <Grid >
-                <TextareaAutosize //description
-                  rowsMin={3}
-                  placeholder="Description"
-                  variant="outlined"
-                  type="text"
-                  required
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  fullWidth
-                  id="description"
-                  label="Description"
-                  name="description"
-                />
-              </Grid>
+            <InputLabel>Garment Type</InputLabel>
+            <Select //Size /<children  size/>
+              labelId="garment"
+              id="garment"
+              value={garmentType}
+              onChange={(e) => setGarmentType(e.target.value)}
+            >
+              {garment.map((garments) => (
+                <MenuItem key={garments} value={garments}>
+                  {garments}
+                </MenuItem>
+              ))}
+            </Select>
 
-              <InputLabel>Size</InputLabel>
-              <Select //Size
-                children
-                labelId="size"
-                id="size"
-                value={size}
-                onChange={(e) => setSize(e.target.value)}
-              >
-                {garmentSizes.map((sizes) => (
+            <InputLabel>Size</InputLabel>
+            <Select //Size /
+              children
+              labelId="size"
+              id="size"
+              value={size}
+              onChange={(e) => setSize(e.target.value)}
+            >
+              {garmentType == "Footwear" ? (
+                shoeSizes.map((sizes) => (
                   <MenuItem key={sizes} value={sizes}>
                     {sizes}
                   </MenuItem>
-                ))}
-              </Select>
+                ))
+              ) : (
+                  garmentSizes.map((sizes) => (
+                    <MenuItem key={sizes} value={sizes}>
+                      {sizes}
+                    </MenuItem>
+                  ))
+                )}
+            </Select>
 
-              <InputLabel>Color</InputLabel>
-              <Select //Color
-                labelId="condition"
-                id="condition"
-                value={condition}
-                onChange={(e) => setColor(e.target.value)}
-              >
-                {conditions.map((conditions) => (
-                  <MenuItem key={conditions} value={conditions}>
-                    {conditions}
-                  </MenuItem>
-                ))}
-              </Select>
-              
-              <InputLabel>Condition</InputLabel>
-              <Select //Color
-                labelId="color"
-                id="color"
-                value={condition}
-                onChange={(e) => setCondition(e.target.value)}
-              >
-                {colors.map((colors) => (
-                  <MenuItem key={colors} value={colors}>
-                    {colors}
-                  </MenuItem>
-                ))}
-              </Select>
+            <InputLabel>Color</InputLabel>
+            <Select //Color
+              labelId="color"
+              id="color"
+              value={color}
+              onChange={(e) => setColor(e.target.value)}
+            >
+              {colors.map((colors) => (
+                <MenuItem key={colors} value={colors}>
+                  {colors}
+                </MenuItem>
+              ))}
+            </Select>
 
-              <Grid >
-                <TextField
-                  name="price"
-                  variant="outlined"
-                  type="number"
-                  required
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
-                  fullWidth
-                  id="price"
-                  label="Price"
-                />
-              </Grid>
+            <InputLabel>Condition</InputLabel>
+            <Select //Color
+              labelId="Condition"
+              id="Condition"
+              value={condition}
+              onChange={(e) => setCondition(e.target.value)}
+            >
+              {conditions.map((conditions) => (
+                <MenuItem key={conditions} value={conditions}>
+                  {conditions}
+                </MenuItem>
+              ))}
+            </Select>
 
-              <Grid>
-                <FormControlLabel
-                  control={
-                    <Checkbox color="primary" />
-                  }
-                  label="I am not a robot"
-                />
-              </Grid>
+            <Grid>
+              <TextField
+                name="price"
+                variant="outlined"
+                type="number"
+                required
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                fullWidth
+                id="price"
+                label="Price"
+              />
+            </Grid>
+
+            <Grid>
+              <FormControlLabel
+                control={<Checkbox color="primary" />}
+                label="I am not a robot"
+              />
+            </Grid>
 
             <Button
               onSubmit={onSubmit}
@@ -189,23 +236,22 @@ export default function Create() {
               value="Create"
             >
               Create
-          </Button>
+            </Button>
           </form>
         </div>
       </Container>
-      )
-  }
-  else {
+    );
+  } else {
     return (
       <Container component="main" maxWidth="lg">
         <CssBaseline />
         <div>
           <Typography component="h1" variant="h5">
             PLEASE LOG IN
-        </Typography>
+          </Typography>
         </div>
       </Container>
-    )
+    );
   }
 }
 

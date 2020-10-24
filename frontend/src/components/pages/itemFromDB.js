@@ -12,33 +12,6 @@ import axios from 'axios';
 import { useParams } from "react-router-dom";
 //import { param } from "../../../../backend/routes/users";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
-const sections = [
-  // variable holding description for links at top of page
-  { title: "Home", url: "http://localhost:3000" },
-  { title: "Design", url: "#" },
-  { title: "Culture", url: "#" },
-  { title: "Business", url: "#" },
-  { title: "Politics", url: "#" },
-  { title: "Opinion", url: "#" },
-  { title: "Science", url: "#" },
-  { title: "Health", url: "#" },
-  { title: "Style", url: "#" },
-  { title: "Travel", url: "#" },
-];
-
 const images = [
   // array holding item images
   {
@@ -111,16 +84,17 @@ const [listing, setListing] = useState({});
     likes: "0"
   };*/
 
-  let { id } = useParams();
+  let { id } = useParams(); //url 
   console.log(id);
   
-  useEffect(() =>{
+  useEffect(() => {
     axios.get('http://localhost:4000/listings/' + id)
       .then(response => {
-        setListing(response.data) 
+        setListing(response.data)
       })
-      console.log(listing)
+    console.log(listing)
   }, [])
+  
 
     const classes = useStyles();
     return (

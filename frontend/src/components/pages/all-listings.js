@@ -1,6 +1,5 @@
 import React, { useContext, Component } from "react";
 import axios from 'axios';
-import Button from "@material-ui/core/Button";
 //import { useHistory } from "react-router-dom";
 //import UserContext from "../../context/UserContext";
 
@@ -9,15 +8,19 @@ const Listing = props => (
         <td>{props.listing.username}</td>
         <td>{props.listing.name}</td>
         <td>{props.listing.description}</td>
+        <td>{props.listing.category}</td>
         <td>{props.listing.size}</td>
         <td>{props.listing.color}</td>
         <td>{props.listing.condition}</td>
-        <td>{props.listing.price}</td>
-        <td>{
-        <Button href={"/listing/" + props.listing._id} size="medium" color="primary">
-            {props.listing._id}
-        </Button>
-        }</td>
+        <td>${props.listing.price}</td>
+        <td>{props.listing.likes}</td>
+        {props.listing.sold ? (
+            <td>True</td>
+        ) : (
+            <td>False</td>
+        )}
+        <td>{props.listing.sold}</td>
+        <td>{props.listing._id}</td>
     </tr>
 )//<td>{props.listing.date}</td>
 /*
@@ -83,10 +86,13 @@ export default class AllListings extends Component {
                         <th>Username</th>
                         <th>name</th>
                         <th>description</th>
+                        <th>category</th>
                         <th>size</th>
                         <th>color</th>
                         <th>condition</th>
                         <th>price</th>
+                        <th>likes</th>
+                        <th>sold</th>
                         <th>id</th>
                         
                     </tr>
