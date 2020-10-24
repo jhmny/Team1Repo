@@ -123,7 +123,7 @@ export default function Album() {
                       
                     </CardContent>
                     <CardActions>
-                      <Button href ={"/listing/" + item._id} size="medium" color="primary">
+                      <Button href ={"/listings/" + item._id} size="medium" color="primary">
                         Buy ${item.price}
                       </Button>
                     </CardActions>

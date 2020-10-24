@@ -1,7 +1,5 @@
-import React, { useContext, Component } from "react";
-import axios from 'axios';
-//import { useHistory } from "react-router-dom";
-//import UserContext from "../../context/UserContext";
+import React, {useState, useEffect } from "react";
+import Button from "@material-ui/core/Button";
 
 const Listing = props => (
     <tr>
@@ -19,89 +17,65 @@ const Listing = props => (
         ) : (
             <td>False</td>
         )}
-        <td>{props.listing.sold}</td>
-        <td>{props.listing._id}</td>
+        <td>{
+            <Button href={"/listings/" + props.listing._id} size="medium" color="primary">
+                {props.listing._id}
+            </Button>
+        }</td>
     </tr>
-)//<td>{props.listing.date}</td>
-/*
-export default function AllListing() {
-    const { userData, setUserData } = useContext(UserContext);
+)
 
+export default function AllListings() {
+    const [error, setError] = useState(null);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [listings, setListings] = useState([]);
+    // the empty deps array [] means this useEffect will run once
 
-    return (
-        <nav className="auth-options">
-            {userData.user ? (
-                <Button onClick={logout}>Log out</Button>
-            ) : (
-                    <>
-                        <Button onClick={register}>Register</Button>
-                        <Button onClick={login}>Log in</Button>
-                    </>
-                )}
-        </nav>
-    );
-}
-.getItem('name');
-*/
+    useEffect(() => {
+        fetch("http://localhost:4000/listings")
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    setIsLoaded(true);
+                    setListings(result);
+                },
+                (error) => {
+                    setIsLoaded(true);
+                    setError(error);
+                }
+            )
+    }, [])
 
+    const listingsList = listings.map(currentlisting => {
+        return <Listing listing={currentlisting} key={currentlisting._id} />;
+    });
 
-export default class AllListings extends Component {
-
-    constructor(props) {
-        super(props);
-        
-        this.state = { listings: []};
+    if (error) {
+        return <div>Error: {error.message}</div>;
     }
-    
-    componentDidMount() {
-        /* If you want to get all Listings for yourself when logged in
-        if (localStorage.getItem('auth-token') != ""){
-        axios.post('http://localhost:4000/listings/byuser', { username: localStorage.getItem('username') })
-            .then(response => {
-                this.setState({listings: response.data});
-            })
-        }
-        */
-
-        axios.get('http://localhost:4000/listings', { username: localStorage.getItem('username') })
-             .then(response => {
-                console.log(response.data)
-                this.setState({ listings: response.data });
-            })
+    else if (!isLoaded) {
+        return <div>Loading...</div>;
     }
-    
-    listingsList() {
-        return this.state.listings.map(currentlisting => {
-            return <Listing listing={currentlisting} key={currentlisting._id} />;
-        })
-    }
-
-    render() {
+    else {
         return (
-            <div>
-                <h1>threadRepo</h1>
-                <h3>my listings</h3>
-                <table className="table">
-                    <tr>
-                        <th>Username</th>
-                        <th>name</th>
-                        <th>description</th>
-                        <th>category</th>
-                        <th>size</th>
-                        <th>color</th>
-                        <th>condition</th>
-                        <th>price</th>
-                        <th>likes</th>
-                        <th>sold</th>
-                        <th>id</th>
-                        
-                    </tr>
-                    <tbody>
-                        {this.listingsList()}
-                    </tbody>
-                </table>
-            </div>
+            <table>
+                <tr>
+                    <th>Username</th>
+                    <th>name</th>
+                    <th>description</th>
+                    <th>category</th>
+                    <th>size</th>
+                    <th>color</th>
+                    <th>condition</th>
+                    <th>price</th>
+                    <th>likes</th>
+                    <th>sold</th>
+                    <th>id</th>
+                </tr>
+                <tbody item key={listings}>
+                    {listingsList}
+                </tbody>
+            </table>
         )
     }
 }
-//<th>date</th>
