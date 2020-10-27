@@ -62,9 +62,10 @@ export default function MyDropzone(props) {
           overflowX: "scroll",
         }}
       >
+        {console.log(Images)}
         {Images.map((image, index) => (
                     <div onClick={() => onDelete(image)}>
-                        <img style={{ minWidth: '1px', width: '300px', height: '240px' }} src={`/${image}`} alt={`productImg-${index}`} />
+                        <img style={{ minWidth: '1px', width: '300px', height: '240px' }} src={`/uploads/1603840420289_unknown.png`} alt={`productImg-${index}`} />
                     </div>
                 ))}
       </div>

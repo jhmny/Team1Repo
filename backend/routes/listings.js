@@ -21,12 +21,12 @@ router.route("/add").post((req, res) => {
   const price = Number(req.body.price);
   const likes = Number(req.body.likes);
   const sold = false;
-  const image = res.req.file.path;
+  const image = req.body.images;
   //const date = req.body.date;
   //const date = Date.parse(req.body.date);
 
   //console.log(username + " " + name + " " + description + " " + size + " " + color + " " + condition + " " + price + " " + likes);
-
+console.log(req.body);
   const newListing = new Listing({
     username,
     name,

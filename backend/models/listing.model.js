@@ -57,8 +57,9 @@ const listingSchema = new Schema({
         default: false
     },
     image : [{  // The price of the listing
-        type: Buffer,
+        type: String,
         required: true,
+
     }],
 
 },  {
