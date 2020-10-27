@@ -12,11 +12,13 @@ import Listing from "./components/pages/itemFromDB.js";
 import item from "./components/pages/item.js";
 import Axios from "axios";
 import Header from "./components/layout/header.js";
+import fs from "fs"
 
 import UserContext from "./context/UserContext.js";
 import Copyright from "./components/layout/Copyright.js";
 
-export const sections = [
+
+export const sections  = [
   { title: "Home", url: "/" },
   { title: "Shirts", url: "#" },
   { title: "Pants", url: "#" },

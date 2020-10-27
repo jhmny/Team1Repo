@@ -19,7 +19,7 @@ router.route("/add").post((req, res) => {
   const price = Number(req.body.price);
   const likes = Number(req.body.likes);
   const sold = false;
-  var link = " ";
+  const image = req.query.Image;
   //const date = req.body.date;
   //const date = Date.parse(req.body.date);
 
@@ -35,7 +35,8 @@ router.route("/add").post((req, res) => {
     condition,
     price,
     likes,
-    sold
+    sold,
+    image
   });
 
   console.log(newListing);
@@ -112,12 +113,11 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage }).single("file")
 
-console.log("hello");
-
 
 router.route("/upload").post((req, res) => {
-  upload(req, res, (err) => {
+  upload(req, res, err => {
     if (err) {
+      console.log("router upload post error got!")
       return res.status(400).json("Error: " + err);
     }
     return res.json({

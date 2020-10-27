@@ -1,15 +1,13 @@
 import React, { useCallback, useState } from "react";
-import { useDropzone } from "react-dropzone";
 import Dropzone from "react-dropzone";
 import Button from "@material-ui/core/Button";
 import Axios from "axios";
 
 export default function MyDropzone(props) {
   const [Images, setImages] = useState([]);
-  const onDrop = (files) => {
 
+  const onDrop = (files) => {
     let formData = new FormData();
-    //
     const config = {
         header: { 'content-type': 'multipart/form-data' } ,   
     }
@@ -24,7 +22,7 @@ export default function MyDropzone(props) {
                 props.refreshFunction([...Images, response.data.image])
 
             } else {
-                alert('Failed to save the Image in Server')
+                alert('fail')
             }
         })
 }
@@ -45,14 +43,17 @@ export default function MyDropzone(props) {
       <Dropzone onDrop={onDrop} maxSize={9999999999} multiple ={false}>
         {({ getRootProps, getInputProps }) => (
          
-            <div {...getRootProps()}>
-              <input {...getInputProps()} />
-              <Button variant="outlined">Upload Image</Button>
+            <div {...getRootProps()}
+            >
+                {console.log('getRootProps', { ...getRootProps() })}
+                {console.log('getInputProps', { ...getInputProps() })}
+                <input {...getInputProps()} />
+                <Button variant="outlined">Upload Image</Button>
+
             </div>
           //https://react-dropzone.js.org/ Has Material UI stuff
         )}
       </Dropzone>
-
       <div
         style={{
           display: "flex",

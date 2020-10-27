@@ -51,6 +51,7 @@ export default function Create() {
         condition: condition,
         price: price,
         likes: 0,
+        sold: 0,
         images: Images,
       };
       
@@ -98,7 +99,6 @@ export default function Create() {
     console.log(newImages) //test
     setImages(newImages)
 }
-  //{setImages(acceptedFiles)}
 
   //https://material-ui.com/components/text-fields/
   if (userData.user) {
