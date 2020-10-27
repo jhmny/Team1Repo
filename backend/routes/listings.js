@@ -1,5 +1,7 @@
 const router = require("express").Router();
 const multer = require("multer");
+const fs = require("fs");
+const path = require("path");
 let Listing = require("../models/listing.model");
 
 router.route("/").get((req, res) => {
@@ -19,7 +21,7 @@ router.route("/add").post((req, res) => {
   const price = Number(req.body.price);
   const likes = Number(req.body.likes);
   const sold = false;
-  const image = req.query.Image;
+  const image = res.req.file.path;
   //const date = req.body.date;
   //const date = Date.parse(req.body.date);
 
@@ -86,6 +88,7 @@ router.route("/update/:id").post((req, res) => {
       listings.color = req.body.color;
       listings.condition = req.body.condition;
       listings.price = req.body.price;
+      listings.images = req.file.path;
 
       listings
         .save()

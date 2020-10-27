@@ -56,11 +56,10 @@ const listingSchema = new Schema({
         required: true,
         default: false
     },
-    image : {  // The price of the listing
-        type: Array,
+    image : [{  // The price of the listing
+        type: Buffer,
         required: true,
-        default: [],
-    },
+    }],
 
 },  {
     timestamps: true,
