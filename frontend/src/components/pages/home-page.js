@@ -9,8 +9,9 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 import Link from "@material-ui/core/Link";
-import axios from 'axios';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -133,6 +134,9 @@ export default function Album() {
             </Grid>
           </Container>
         </main>
+        <Fab href="/listings/create" color="primary" aria-label="add">
+          <AddIcon />
+        </Fab>
       </React.Fragment>
     );
   }

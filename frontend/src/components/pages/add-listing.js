@@ -4,6 +4,7 @@ import UserContext from "../../context/UserContext";
 import Axios from "axios";
 import Dropzone from "react-dropzone";
 import MyDropzone from "../misc/file-upload.js";
+//import Filters from "../misc/filters.js";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -71,27 +72,16 @@ export default function Create() {
     }
   };
 
-  //Selection menu options
-  const garment = ["Upper Thread", "Lower Thread", "Footwear"];
-  const garmentSizes = ["XS", "S", "M", "L", "XL", "XXL"];
-  const shoeSizes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16];
-  const conditions = ["New", "Like New", "Used", "Damaged"];
-  const colors = [
-    "Blue",
-    "Red",
-    "Yellow",
-    "Brown",
-    "White",
-    "Black",
-    "Pink",
-    "Green",
-    "Purple",
-    "Orange",
-    "Gray",
-    "Beige",
-    "Camoflauge",
-    "Tie-Dye",
-  ];
+  const Filters = {
+    garment: ["Upper Thread", "Lower Thread", "Footwear"],
+    garmentSizes: ["XS", "S", "M", "L", "XL", "XXL"],
+    shoeSizes: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16],
+    conditions: ["New", "Like New", "Used", "Damaged"],
+    colors: ["Blue", "Red", "Yellow", "Brown", "White",
+      "Black", "Pink", "Green", "Purple", "Orange",
+      "Gray", "Beige", "Camoflauge", "Tie-Dye"
+    ]
+  }
 
 
   const updateImages = (newImages) => {
@@ -148,7 +138,7 @@ export default function Create() {
               value={garmentType}
               onChange={(e) => setGarmentType(e.target.value)}
             >
-              {garment.map((garments) => (
+              {Filters.garment.map((garments) => (
                 <MenuItem key={garments} value={garments}>
                   {garments}
                 </MenuItem>
@@ -164,13 +154,13 @@ export default function Create() {
               onChange={(e) => setSize(e.target.value)}
             >
               {garmentType == "Footwear" ? (
-                shoeSizes.map((sizes) => (
+                Filters.shoeSizes.map((sizes) => (
                   <MenuItem key={sizes} value={sizes}>
                     {sizes}
                   </MenuItem>
                 ))
               ) : (
-                  garmentSizes.map((sizes) => (
+                  Filters.garmentSizes.map((sizes) => (
                     <MenuItem key={sizes} value={sizes}>
                       {sizes}
                     </MenuItem>
@@ -185,7 +175,7 @@ export default function Create() {
               value={color}
               onChange={(e) => setColor(e.target.value)}
             >
-              {colors.map((colors) => (
+              {Filters.colors.map((colors) => (
                 <MenuItem key={colors} value={colors}>
                   {colors}
                 </MenuItem>
@@ -199,7 +189,7 @@ export default function Create() {
               value={condition}
               onChange={(e) => setCondition(e.target.value)}
             >
-              {conditions.map((conditions) => (
+              {Filters.conditions.map((conditions) => (
                 <MenuItem key={conditions} value={conditions}>
                   {conditions}
                 </MenuItem>
