@@ -8,6 +8,30 @@ router.route("/").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+
+
+router.route("/filter").post((req, res) => {
+  const keys = Object.keys(req.body);
+  var filter = {};
+  var i = 0;
+  for(i = 0; i < keys.length; i++){
+    if(req.body[keys[i]].length !=0){
+      filter[keys[i]] = req.body[keys[i]];
+    }
+  }
+  console.log(req.body);
+  console.log(filter);
+
+  Listing.find(filter, function (err, listings) {
+    if (err) {
+      console.log("bad");
+    }
+  }).then(function (listings) {
+    console.log("good");
+    res.json(listings);
+  });
+});
+
 router.route("/add").post((req, res) => {
   const username = req.body.username;
   const name = req.body.name;

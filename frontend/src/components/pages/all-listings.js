@@ -1,11 +1,11 @@
 import React, {useState, useEffect } from "react";
-import Button from "@material-ui/core/Button";
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Checkbox from '@material-ui/core/Checkbox';
+import {
+    Button, FormLabel, FormControl, FormGroup,
+    FormControlLabel, Checkbox
+} from '@material-ui/core';
+import Axios from "axios";
+
+
 
 const Listing = props => (
     <tr>
@@ -52,9 +52,6 @@ export default function AllListings() {
             size: [],
             color: [],
             condition: [],
-            //price: price,
-            //likes: 0,
-            //username: localStorage.getItem("username")
         }
     );
 
@@ -115,12 +112,10 @@ export default function AllListings() {
                 break;
         }
         setFilter(newFilter);
-        console.log(filter);
+        //reloads listings
+        Axios.post("http://localhost:4000/listings/filter", filter)
+            .then(response => { setListings(response.data) });
     }
-
-    const listingsList = listings.map(currentlisting => {
-        return <Listing listing={currentlisting} key={currentlisting._id} />;
-    });
 
     const filterList = Filters.map(currentFilter => {
         return (
@@ -140,6 +135,10 @@ export default function AllListings() {
                 </FormGroup>
             </FormControl>
         )
+    });
+
+    const listingsList = listings.map(currentlisting => {
+        return <Listing listing={currentlisting} key={currentlisting._id} />;
     });
 
 
@@ -179,15 +178,3 @@ export default function AllListings() {
         )
     }
 }
-
-/*
-<FormControl>
-                        <FormLabel>Assign responsibility</FormLabel>
-                        <FormGroup>
-                            <FormControlLabel
-                                control={<Checkbox checked={gilad} onChange={handleChange} name="gilad" />}
-                                label="Gilad Gray"
-                            />
-                        </FormGroup>
-                    </FormControl>
-*/
