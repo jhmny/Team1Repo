@@ -65,7 +65,8 @@ export default function MyDropzone(props) {
         {console.log(Images)}
         {Images.map((image, index) => (
                     <div onClick={() => onDelete(image)}>
-                        <img style={{ minWidth: '1px', width: '300px', height: '240px' }} src={`/uploads/1603840420289_unknown.png`} alt={`productImg-${index}`} />
+                      {console.log(Images)}
+                        <img style={{ minWidth: '1px', width: '300px', height: '240px' }} src={`http://localhost:3000/${image}`} alt={`productImg-${index}`} />
                     </div>
                 ))}
       </div>

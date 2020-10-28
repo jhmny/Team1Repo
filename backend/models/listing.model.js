@@ -59,7 +59,6 @@ const listingSchema = new Schema({
     image : [{  // The price of the listing
         type: String,
         required: true,
-
     }],
 
 },  {
