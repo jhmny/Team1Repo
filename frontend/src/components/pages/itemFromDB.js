@@ -96,30 +96,8 @@ const [listing, setListing] = useState({});
       })
     console.log(listing)
   }, [])
+
   
-    /*
-    const addToCartHandler = () => {
-      props.addToCart(props.detail._id)
-    }
-
-    const addToCartHandler = () => {
-      addToCart(listing._id)
-      //dispatch(addToCart(listingId))
-    }
-
-    export function addToCart(_id)
-    {
-      const request = axios.get('http://localhost:4000/users/' + id)
-          .then(response => response.data);
-
-    }
-    */ 
-    const addToCart = () =>
-    {
-      const request = axios.post('http://localhost:4000/users/update/' + localStorage.getItem("username"), listing.id)
-        .then(response => response.data);
-      console.log(listing.id);
-    }
 
     const classes = useStyles();
     return (
@@ -175,12 +153,8 @@ const [listing, setListing] = useState({});
                   </Col>
                 </Row>
                 <Row>   
-                  {/*                       
-                  <ListingInfo                        
-                  addToCart = {addToCart}
-                  />
-                  */}
-                  <Button onCLick={addToCart}> Add to Cart</Button>
+                
+                  <Button href ={"/Checkout/"}> Buy Now </Button>
                 </Row>
               </div>
             </Col>
