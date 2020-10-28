@@ -19,15 +19,16 @@ router.route("/filter").post((req, res) => {
       filter[keys[i]] = req.body[keys[i]];
     }
   }
-  console.log(req.body);
-  console.log(filter);
+  //console.log(req.body);
+  //console.log(filter); these two should match, excluding empty arrays
 
   Listing.find(filter, function (err, listings) {
     if (err) {
       console.log("bad");
+      res.json(err);
     }
   }).then(function (listings) {
-    console.log("good");
+    //console.log("good");
     res.json(listings);
   });
 });
