@@ -151,6 +151,16 @@ router.get('/', auth, async (req, res) => {
 router.route('/update/:id').post((req, res) => {
     User.findById(req.params.id)
         .then(users => {
+                if(!users.cart.includes(req.body.id) && req.body.add){
+                    users.cart = user.cart.push(req.body.id);
+                users.save()
+                    .then(() => res.json('Listing updated.'))
+                    .catch(err => res.status(400).json('Error: ' + err));
+                }
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+    /*User.findById(req.params.id)
+        .then(users => {
             bcrypt.hash(req.body.password, saltLength, function (err, hash) {
                 users.username = req.body.username;
                 users.firstname = req.body.firstname;
@@ -165,6 +175,13 @@ router.route('/update/:id').post((req, res) => {
             });
         })
         .catch(err => res.status(400).json('Error: ' + err));
+        */
 });
 
 module.exports = router;
+
+router.post('/cart', auth, async (req, res) => {
+    await User.findById(req.body.id)
+        .then(user => res.json(user.cart))
+        .catch(err => res.status(500).json({ error: err.message }));
+});

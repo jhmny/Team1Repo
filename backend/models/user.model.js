@@ -39,6 +39,17 @@ const userSchema = new Schema({
             match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'is invalid']
         },
 
+        cart: {
+            type: Array,
+            //quantitiy: Number,
+            default: []
+        },
+
+        history: {
+            type: Array,
+            default: []
+        },
+
         password: {
             type: String,
             required: true,

@@ -10,6 +10,7 @@ import { Row, Col } from "reactstrap";
 import ImageGallery from "react-image-gallery";
 import axios from 'axios';
 import { useParams } from "react-router-dom";
+//import { useDispatch } from 'react-redux';
 //import { param } from "../../../../backend/routes/users";
 
 const images = [
@@ -71,6 +72,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Listing(){
 const [listing, setListing] = useState({});
+//const dispatch = useDispatch();
 
   /*
   var listing = {
@@ -95,6 +97,29 @@ const [listing, setListing] = useState({});
     console.log(listing)
   }, [])
   
+    /*
+    const addToCartHandler = () => {
+      props.addToCart(props.detail._id)
+    }
+
+    const addToCartHandler = () => {
+      addToCart(listing._id)
+      //dispatch(addToCart(listingId))
+    }
+
+    export function addToCart(_id)
+    {
+      const request = axios.get('http://localhost:4000/users/' + id)
+          .then(response => response.data);
+
+    }
+    */ 
+    const addToCart = () =>
+    {
+      const request = axios.post('http://localhost:4000/users/update/' + localStorage.getItem("username"), listing.id)
+        .then(response => response.data);
+      console.log(listing.id);
+    }
 
     const classes = useStyles();
     return (
@@ -149,8 +174,13 @@ const [listing, setListing] = useState({});
                     </form>
                   </Col>
                 </Row>
-                <Row>
-                  <Button>BuyNow</Button>
+                <Row>   
+                  {/*                       
+                  <ListingInfo                        
+                  addToCart = {addToCart}
+                  />
+                  */}
+                  <Button onCLick={addToCart}> Add to Cart</Button>
                 </Row>
               </div>
             </Col>

@@ -7,6 +7,7 @@ import AllListings from "./components/pages/all-listings.js";
 import AddListings from "./components/pages/add-listing.js";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
+import CartPage from "./components/pages/cart.js";
 
 import Listing from "./components/pages/itemFromDB.js";
 import item from "./components/pages/item.js";
@@ -25,7 +26,7 @@ export const sections = [
   { title: "New Listing", url: "/listings/create" },
   { title: "All Listings", url: "/listings" },
   { title: "Yeezy", url: "/listings/5f87b8b75a9ba409f9d22269" },
-  { title: " ", url: "#" },
+  { title: "Cart Page", url: "/cart" },
   { title: " ", url: "#" },
 ];
 
@@ -75,6 +76,7 @@ export default function App() {
               <Route path="/listings/create" exact component={AddListings} />
               <Route path="/item" exact component={item} />
               <Route path="/listings/:id" exact component={Listing} />
+              <Route path="/cart" exact component={CartPage} />
               <Route path="/login" exact component={Login} />
               <Route path="/register" exact component={Register} />
             </Switch>
