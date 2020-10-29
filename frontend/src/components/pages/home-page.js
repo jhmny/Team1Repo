@@ -166,7 +166,7 @@ export default function Album() {
       <React.Fragment>
         <CssBaseline />
         <main>
-          {/* Hero unit, section of window where heading is (aka Listings for home-page) */}
+          {/* Hero unit, section of window where heading is (aka Listings for home-page) 
           <div className={classes.heroContent}>
             <Container maxWidth="sm">
               <Typography
@@ -187,7 +187,7 @@ export default function Album() {
               <div className={classes.heroButtons}></div>
             </Container>
           </div>
-          {/* End hero unit */}
+           End hero unit */}
 
           <div>
             {filterList(Filters.category) /*Category*/}
