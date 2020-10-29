@@ -1,43 +1,12 @@
-import React, { Component, useEffect, useState, useContext } from "react";
+import React, {useEffect, useState} from "react";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import Link from "@material-ui/core/Link";
 import { Row, Col } from "reactstrap";
 import ImageGallery from "react-image-gallery";
 import axios from 'axios';
 import { useParams } from "react-router-dom";
-//import { param } from "../../../../backend/routes/users";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
-const sections = [
-  // variable holding description for links at top of page
-  { title: "Home", url: "http://localhost:3000" },
-  { title: "Design", url: "#" },
-  { title: "Culture", url: "#" },
-  { title: "Business", url: "#" },
-  { title: "Politics", url: "#" },
-  { title: "Opinion", url: "#" },
-  { title: "Science", url: "#" },
-  { title: "Health", url: "#" },
-  { title: "Style", url: "#" },
-  { title: "Travel", url: "#" },
-];
 
 const images = [
   // array holding item images
@@ -92,35 +61,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-//let {id} = useParams();
-//console.log(id);
-
-
 export default function Listing(){
 const [listing, setListing] = useState({});
 
-  /*
-  var listing = {
-    username: "a",
-    name: "b",
-    description: "c",
-    size: "d",
-    color: "e",
-    condition: "f",
-    price: "1",
-    likes: "0"
-  };*/
-
-  let { id } = useParams();
-  console.log(id);
-  
-  useEffect(() =>{
+  let { id } = useParams(); //url 
+  useEffect(() => {
     axios.get('http://localhost:4000/listings/' + id)
       .then(response => {
-        setListing(response.data) 
+        setListing(response.data)
       })
-      console.log(listing)
+    console.log(listing)
   }, [])
+  
 
     const classes = useStyles();
     return (

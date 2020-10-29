@@ -27,7 +27,7 @@ export default function AuthOptions() {
         <Button onClick={logout}>Log out</Button>
       ) : (
         <>
-          <Button onClick={register}>Register</Button>
+          <Button  onClick={register}>Register</Button>
           <Button onClick={login}>Log in</Button>
         </>
       )}
