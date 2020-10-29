@@ -154,7 +154,7 @@ const [listing, setListing] = useState({});
                 </Row>
                 <Row>   
                 
-                  <Button href ={"/Checkout/"}> Buy Now </Button>
+                  <Button href ={"/Checkout/" + id}> Buy Now </Button>
                 </Row>
               </div>
             </Col>

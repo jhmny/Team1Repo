@@ -30,7 +30,11 @@ const useStyles = makeStyles((theme) => ({
   title: {
     marginTop: theme.spacing(2),
   },
+  titlePrice: {
+    padding: theme.spacing(1, 0),
+  }
 }));
+
 
 export default function Review() {
   const classes = useStyles();
@@ -53,16 +57,17 @@ export default function Review() {
         Order summary
       </Typography>
       <List disablePadding>
-          <div className={classes.listItem}>
+        
           <h1>{listing.name}</h1>
+        <ListItem className = {classes.titlePrice}>
             <ListItemText primary={listing.name} secondary={listing.description} />
-            <Typography variant="body2">{listing.price}</Typography>
-          </div>
-      
+            <Typography variant="body2">${listing.price}</Typography>
+        
+      </ListItem>
         <ListItem className={classes.listItem}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" className={classes.total}>
-            {listing.price}
+            ${listing.price}
           </Typography>
         </ListItem>
       </List>

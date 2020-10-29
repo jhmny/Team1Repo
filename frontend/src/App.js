@@ -76,7 +76,7 @@ export default function App() {
               <Route path="/listings/create" exact component={AddListings} />
               <Route path="/item" exact component={item} />
               <Route path="/listings/:id" exact component={Listing} />
-              <Route path="/Checkout" exact component={Checkout} />
+              <Route path="/Checkout/:id" exact component={Checkout} />
               <Route path="/login" exact component={Login} />
               <Route path="/register" exact component={Register} />
             </Switch>
