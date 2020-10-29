@@ -78,16 +78,9 @@ export default function Album() {
       )
   }, [])
 
-  const handleToggle = (id, arr) => {
-    var value = "";
+  const handleToggle = (id, value) => {
     var newFilter = filter;
-    if (arr.length === 0) { value = filter[id][0];}
-    else { value = arr[arr.length - 1] }
-
-    var index = filter[id].indexOf(value);
-    if (index === -1) { newFilter[id].push(value); }
-    else { newFilter[id].splice(index, 1); }
-
+    newFilter[id] = value;
     setFilter(newFilter);
     //console.log(filter);
     Axios.post("http://localhost:4000/listings/filter", filter)
@@ -98,16 +91,16 @@ export default function Album() {
   }
 
   const removeNum = (i) => {
-    if ((parseInt(i) + "") !== "NaN") { return i }
+    if ((parseInt(i) + "") === "NaN") { return i }
   }
   const removeStr = (i) => {
-    if ((parseInt(i) + "") === "NaN") { return i }
+    if ((parseInt(i) + "") !== "NaN") { return i }
   }
 
   const filterList = (currentFilter) => (
     <FormControl className={classes.formControl}>
       <InputLabel>{currentFilter.name}</InputLabel>
-      <Select //Color
+      <Select
         multiple
         value={filter[currentFilter.id]}
         onChange={(e) => handleToggle(currentFilter.id, e.target.value)}
@@ -166,40 +159,21 @@ export default function Album() {
       <React.Fragment>
         <CssBaseline />
         <main>
-          {/* Hero unit, section of window where heading is (aka Listings for home-page) */}
-          <div className={classes.heroContent}>
-            <Container maxWidth="sm">
-              <Typography
-                component="h1"
-                variant="h2"
-                align="center"
-                color="textPrimary"
-                gutterBottom
-              ></Typography>
-              <Typography
-                variant="h5"
-                align="center"
-                color="textSecondary"
-                paragraph
-              >
-                Listings
-              </Typography>
-              <div className={classes.heroButtons}></div>
-            </Container>
-          </div>
-          {/* End hero unit */}
-
           <div>
             {filterList(Filters.category) /*Category*/}
 
             {(filter.category.includes("Upper Thread") || filter.category.includes("Lower Thread")) ? (
               filterList(Filters.size[0])
-            ) : (filter.size.filter(removeStr).map(unselected => { handleToggle("size", unselected) }))}
+            ) : (filter.size.filter(removeNum).length === 0 ? ("") :
+              (handleToggle("size", filter.size.filter(removeStr)))
+              )} 
 
             {(filter.category.includes("Footwear")) ? (
               filterList(Filters.size[1])
-            ) : (filter.size.filter(removeNum).map(unselected => { handleToggle("size", unselected) }))}
-
+            ) : (filter.size.filter(removeStr).length === 0? ("") : 
+            (handleToggle("size", filter.size.filter(removeNum)))
+            )} 
+            
             {filterList(Filters.condition)}
             {filterList(Filters.color)}
           </div>
