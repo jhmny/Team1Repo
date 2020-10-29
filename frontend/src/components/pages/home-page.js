@@ -55,8 +55,8 @@ export default function Album() {
   const [listings, setListings] = useState([]);// the empty deps array [] means this useEffect will run once
 
   useEffect(() => {
-    fetch("http://localhost:4000/listings")
-      .then(res => res.json())
+    fetch("http://localhost:4000/listings")// fetch() provides an easy, logical way to fetch resources asynchronously across the network
+      .then(res => res.json())// json() extracts the JSON body content from the response
       .then(
         (result) => {
           setIsLoaded(true);
@@ -119,7 +119,7 @@ export default function Album() {
                       <Typography gutterBottom variant="h5" component="h2">
                         {item.name}
                       </Typography>
-                      <Typography>Buy me</Typography>
+                      <Typography>${item.price}</Typography>
                     </CardContent>
                     <CardActions>
                       <Button href="/item" size="medium" color="primary">

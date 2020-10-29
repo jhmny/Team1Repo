@@ -8,6 +8,8 @@ import AllListings from "./components/pages/all-listings.js";
 import AddListings from "./components/pages/add-listing.js";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
+import profilePage from "./components/pages/user-profile-page.js"
+import messagePage from "./components/pages/user-messages.js"
 
 import Listing from "./components/pages/itemFromDB.js";
 import item from "./components/pages/item.js";
@@ -23,7 +25,7 @@ export const sections = [
   { title: "Pants", url: "#" },
   { title: "Shoes", url: "#" },
   { title: "Hamsters ", url: "#" },
-  { title: " ", url: "#" },
+  { title: "Profile", url: "/user-profile-page" },
   { title: " ", url: "#" },
   { title: " ", url: "#" },
   { title: " ", url: "#" },
@@ -79,6 +81,8 @@ export default function App() {
               <Route path="/listing/:id" exact component={Listing} />
               <Route path="/login" exact component={Login} />
               <Route path="/register" exact component={Register} />
+              <Route path="/user-profile-page" exact component={profilePage}/>
+              <Route path="/user-messages" exact component={messagePage}/>
             </Switch>
           </div>
           <Copyright />
