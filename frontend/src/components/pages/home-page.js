@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AddIcon from '@material-ui/icons/Add';
-import { 
+import {
   Button, Card, CardActions, CardContent,
   CardMedia, CssBaseline, Grid, Typography,
-  Container, Fab, Link
-} from '@material-ui/core';
-import { //filter stuff
-  FormLabel, FormControl, FormGroup,
-  FormControlLabel, Checkbox
+  Container, Fab, FormControl, Input, 
+  InputLabel, Select, MenuItem
 } from '@material-ui/core';
 import Axios from "axios";
+import {Filters} from "../misc/filters";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -43,36 +41,27 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(6),
   },
-}));
-
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-/////
-const Filters = [
-  { id: "Category", list: ["Upper Thread", "Lower Thread", "Footwear"] },
-  { id: "Size", list: ["XS", "S", "M", "L", "XL", "XXL"] },
-  { id: "Foot Size", list: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16] },
-  { id: "Condition", list: ["New", "Like New", "Used", "Damaged"] },
-  {
-    id: "Color", list: ["Blue", "Red", "Yellow", "Brown", "White",
-      "Black", "Pink", "Green", "Purple", "Orange",
-      "Gray", "Beige", "Camoflauge", "Tie-Dye"
-    ]
+  chips: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+    maxWidth: 300,
   }
-]
-/////
+}));
 
 export default function Album() {
   const classes = useStyles();
 
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [reload, setReload] = useState(false);
   const [listings, setListings] = useState([]);
   const [filter, setFilter] = useState({
-      category: [], size: [],
-      color: [], condition: [],
-    });
+    category: [], size: [],
+    color: [], condition: [],
+  });
 
   useEffect(() => {
     fetch("http://localhost:4000/listings")
@@ -82,133 +71,97 @@ export default function Album() {
           setIsLoaded(true);
           setListings(result);
         },
-        (error) =>{
+        (error) => {
           setIsLoaded(true);
           setError(error);
         }
       )
   }, [])
 
-  /*
-  async function loading(){
-    await Axios.post("http://localhost:4000/listings/filter", filter)
-      .then(response => {
-        console.log(response.data);
-        setListings(response.data);
-        console.log(listings); 
-      });
-  }
-*/
-  const handleToggle = (id, value) => {
+  const handleToggle = (id, arr) => {
+    var value = "";
     var newFilter = filter;
-    var index = -1;
-    switch (id) {
-      case "Category":
-        index = filter.category.indexOf(value);
-        if (index === -1) {
-          newFilter.category.push(value);
-        }
-        else {
-          newFilter.category.splice(index, 1);
-        }
-        break;
-      case "Condition":
-        index = filter.condition.indexOf(value);
-        if (index === -1) {
-          newFilter.condition.push(value);
-        }
-        else {
-          newFilter.condition.splice(index, 1);
-        }
-        break;
-      case "Color":
-        index = filter.color.indexOf(value);
-        if (index === -1) {
-          newFilter.color.push(value);
-        }
-        else {
-          newFilter.color.splice(index, 1);
-        }
-        break;
-      default:
-        index = filter.size.indexOf(value);
-        if (index === -1) {
-          newFilter.size.push(value);
-        }
-        else {
-          newFilter.size.splice(index, 1);
-        }
-        break;
-    }
+    if (arr.length === 0) { value = filter[id][0];}
+    else { value = arr[arr.length - 1] }
+
+    var index = filter[id].indexOf(value);
+    if (index === -1) { newFilter[id].push(value); }
+    else { newFilter[id].splice(index, 1); }
+
     setFilter(newFilter);
     //console.log(filter);
-    //loading();
     Axios.post("http://localhost:4000/listings/filter", filter)
-      .then(response => { setListings([]);
-        setListings(response.data) });
-    //setReload(!reload)
+      .then(response => {
+        setListings([]);
+        setListings(response.data)
+      });
   }
 
-  const filterList = Filters.map(currentFilter => {
-    return (
-      <FormControl>
-        <FormLabel>{currentFilter.id}</FormLabel>
-        <FormGroup>
-          {currentFilter.list.map(currentOptions => {
-            return (
-              <FormControlLabel
-                control={<Checkbox
-                  onChange={() => handleToggle(currentFilter.id, currentOptions)}
-                  name={currentOptions} />}
-                label={currentOptions}
-              />)
-          })
-          }
-        </FormGroup>
-      </FormControl>
-    )
-  });
+  const removeNum = (i) => {
+    if ((parseInt(i) + "") !== "NaN") { return i }
+  }
+  const removeStr = (i) => {
+    if ((parseInt(i) + "") === "NaN") { return i }
+  }
+
+  const filterList = (currentFilter) => (
+    <FormControl className={classes.formControl}>
+      <InputLabel>{currentFilter.name}</InputLabel>
+      <Select //Color
+        multiple
+        value={filter[currentFilter.id]}
+        onChange={(e) => handleToggle(currentFilter.id, e.target.value)}
+        input={<Input />}
+      >
+        {currentFilter.list.map((currentOptions) => (
+          <MenuItem key={currentOptions} value={currentOptions}>
+            {currentOptions}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
+  );
 
   const displayListings = () => {
-    return(
-    <Container className={classes.cardGrid} maxWidth="md">
-      <Grid container spacing={4}>
-        {listings.map(item => (
-          <Grid item key={listings} xs={12} sm={6} md={4}>
-            <Card className={classes.card}>
-              <CardMedia
-                className={classes.cardMedia}
-                image="https://source.unsplash.com/random"
-                title="Image title"
-              />
-              <CardContent className={classes.cardContent}>
-                <Typography gutterBottom variant="h5" component="h2">
-                  {item.name}
-                </Typography>
-                <Typography>{item.description}</Typography>
+    return (
+      <Container className={classes.cardGrid} maxWidth="md">
+        <Grid container spacing={4}>
+          {listings.map(item => (
+            <Grid item key={listings} xs={12} sm={6} md={4}>
+              <Card className={classes.card}>
+                <CardMedia
+                  className={classes.cardMedia}
+                  image="https://source.unsplash.com/random"
+                  title="Image title"
+                />
+                <CardContent className={classes.cardContent}>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    {item.name}
+                  </Typography>
+                  <Typography>{item.description}</Typography>
 
-              </CardContent>
-              <CardActions>
-                <Button href={"/listings/" + item._id} size="medium" color="primary">
-                  Buy ${item.price}
-                </Button>
-              </CardActions>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-    </Container>
+                </CardContent>
+                <CardActions>
+                  <Button href={"/listings/" + item._id} size="medium" color="primary">
+                    Buy ${item.price}
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
     )
   };
 
 
-  if(error){
+  if (error) {
     return <div>Error: {error.message}</div>;
   }
-  else if (!isLoaded){
+  else if (!isLoaded) {
     return <div>Loading...</div>;
   }
-  else{
+  else {
     return (
       <React.Fragment>
         <CssBaseline />
@@ -237,11 +190,19 @@ export default function Album() {
           {/* End hero unit */}
 
           <div>
-            {filterList}
-          </div>
+            {filterList(Filters.category) /*Category*/}
 
-          {/* where the containers for listings is created */}
-          {/*reload? (displayListings()) : (displayListings())*/}
+            {(filter.category.includes("Upper Thread") || filter.category.includes("Lower Thread")) ? (
+              filterList(Filters.size[0])
+            ) : (filter.size.filter(removeStr).map(unselected => { handleToggle("size", unselected) }))}
+
+            {(filter.category.includes("Footwear")) ? (
+              filterList(Filters.size[1])
+            ) : (filter.size.filter(removeNum).map(unselected => { handleToggle("size", unselected) }))}
+
+            {filterList(Filters.condition)}
+            {filterList(Filters.color)}
+          </div>
           {displayListings()}
         </main>
         <Fab href="/listings/create" color="primary" aria-label="add">
@@ -251,3 +212,4 @@ export default function Album() {
     );
   }
 }
+
