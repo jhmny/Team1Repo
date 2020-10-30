@@ -51,10 +51,10 @@ This is the basic layout of how our clients will access the database.
 -                  -                     -                  -
 -     CLIENT       -     <------>        -                  -
 -                  -                     -                  -                       ----------------
--                  -                     -                  -                     -     DATABASE     -    
---------------------                     -     SERVER       -   <-------->          ----------------
--                  -                     -                  -                       ----------------
--                  -                     -                  -                     -     DATABASE     -  
+-                  -                     -                  -                     -                  -    
+--------------------                     -     SERVER       -   <-------->        -     DATABASE     -
+-                  -                     -                  -                     -                  -
+-                  -                     -                  -                     -                  -  
 -     CLIENT       -     <------>        -                  -                       ----------------  
 -                  -                     -                  -
 -                  -                     -                  -
@@ -140,10 +140,151 @@ logging in, creating a list, changing profile page.  The users will also need
 functionality for communicating with sellers, which the server will need to do
 in order transfer the messsage between users.
 
------------------------------------------------------------------------
+
+3. Requirements
+-------------------
+3.1 UI Requirements
+Home page, login page, listing page, checkout page, user profile page, etc.
+
+ID: UIR1
+Home/splash page (All listings)
+* Description: Given the user has accessed the website, the home page is display which contains all listings.
+* Rationale: In order for the user to view the website
+* Dependency: N/A
+
+  ID: UIR2
+  Specific listing page
+  * Description: Given the user is on the home page, they can view a specific listing where they can later checkout.
+  * Rationale: In order for the user to view a specific listing.
+  * Dependency: UIR1
+
+    ID: UIR3
+    Checkout page
+    * Description: If the user is logged in and on a specific listing, they can be taken to a page where they can checkout with PayPal API.
+    * Rationale: For the user to able to checkout a listing.
+    * Dependency: UIR2
+  
+  ID: UIR4
+  Filter listings
+  * Description: If the user is on the home page, they can filter listings with drop down menus of categories of garment type, size, condition, and color.
+  * Rationale: For the user to be able to use the website
+  * Dependency: UIR1
+
+  ID: UIR5
+  Register page
+  * Description: Given the user is on the website, a user can go to the register page where they can register.
+  * Rationale: For the user to be able to register.
+  * Dependency: UIR1
+
+  ID: UIR6
+  Login page
+  * Description: Given the user is on the website, a user can go to the login page where they can login if they have registered.
+  * Rationale: For the user to able to log in.
+  * Dependency: UIR1
+
+  ID: UIR7
+  Create listing page
+  * Description: Given the user is on the website, a user can go to the create listing page where they can create a new listing if they are logged in.
+  * Rationale: For the user to be able to create a listing of their own.
+  * Dependency: UIR 1
+
+  ID: UIR8
+  User profile page
+  * Description: Given the user is on the website, a user can view their user profile page if they are logged in.
+  * Rationale: For the user to able to view their profile.
+  * Dependency: UIR1
+
+    ID: UIR9
+    Order history page
+    * Description: Given the user is on their user profile, they can view their order history page.
+    * Rationale: For the user to able to view their order history.
+    * Dependency: UIR8
+
+
+
+
+
+3.2 Functional Requirements
+ID: FR1
+Access website
+* Description: A user should be able to access the website through a url via internet browser
+* Rationale: For the user to able to use the website
+* Dependency: N/A
+
+  ID: FR2
+  View all listings
+  * Description: The home page or landing page of the website displays all available listings from the database.
+  * Rationale: For the user to view all listings.
+  * Dependency: FR1
+
+    ID: FR3
+    Filter listings
+    * Description: If the user is viewing all litsings, they can filter listings by a combination of category garment type, size, condition, and color. 
+    * Rationale: For the user to be able to filter all listings.
+    * Dependency: FR2
+
+    ID: FR4
+    View specific listing
+    * Description: If the user is viewing all listings, they can view the page of the specific listing.
+    * Rationale: For the user to able to view a specific listing.
+    * Dependency: FR2
+  
+  ID: FR5
+  User register
+  * Description: A user should be able to register through the client if they are on the website. A first name, last name, email, username, and password are required. It is stored in the database
+  * Rationale: For the user to register through the client.
+  * Dependency: FR1
+
+    ID: FR6
+    User login
+    * Description: A user can login if they have registered through the client. Only the email and password are required to login. The information is from the database.
+    * Rationale: For the user to login through the client
+    * Dependency: FR5
+
+      ID: FR7
+      Create listing
+      * Description: Given a user is logged in, a user can create a new listing that requires a name, description, garment type, size, color, condition, price, along with pictures. This information is stored in the database.
+      * Rationale: For the user to create new listings.
+      * Dependency: FR6
+
+      ID: FR8
+      Checkout listing
+      * Description: Given a user is logged in and is on the specific listing page, they are able to checkout via PayPal API.
+      * Rationale: For the user to purchase created listings from other users.
+      * Dependency: FR4, FR6
+
+      ID: FR9
+      User profile  
+      * Description: If a user is logged in, they can view information about themselves they have provided in registration. 
+      * Rationale: For the user to view their user profile.
+      * Dependency: FR6
+
+        ID: FR10
+        View order history
+        * Description: If a user is logged in and on their user profile page, they can view a page of their order history. 
+        * Rationale: For the user to see their order history. 
+        * Dependency: FR9
+
+
+
+
+
+
+3.3 Non-Functional Requirements
+
+3.3.1 Responsive UI:
+* Description: User interaction with the client should take no longer than 5 seconds more or less. 
+* Rationale: For the user to have a comfortable and responsive user experience (and so they know the client is not broken, bugged, or slow).
+
+3.3.2 Network/database connectivity:
+* Description: All functions and interactions involving the database should take no lonegr than 5 seconds more or less.
+* Rationale: For the database to not be unresponsive and prevent flooding or slowing down of the database via infinite/slow requests. 
+
+
 
 
 4. Prioritization
+-------------------
 The order of priority for threadRepo starts with establishing a functional main webpage, this 
 means having a properly layed out design for the site.  There will be some examples of listings
 up for a user to view.  Users will also have the ability to create a profile that incorporates 
