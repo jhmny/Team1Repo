@@ -1,11 +1,8 @@
-import React, { Component, useEffect, useState, useContext } from "react";
+import React, {useEffect, useState} from "react";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import Link from "@material-ui/core/Link";
 import { Row, Col } from "reactstrap";
 import ImageGallery from "react-image-gallery";
 import axios from 'axios';
@@ -66,29 +63,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-//let {id} = useParams();
-//console.log(id);
-
-
 export default function Listing(){
 const [listing, setListing] = useState({});
 //const dispatch = useDispatch();
 
-  /*
-  var listing = {
-    username: "a",
-    name: "b",
-    description: "c",
-    size: "d",
-    color: "e",
-    condition: "f",
-    price: "1",
-    likes: "0"
-  };*/
-
   let { id } = useParams(); //url 
-  console.log(id);
-  
   useEffect(() => {
     axios.get('http://localhost:4000/listings/' + id)
       .then(response => {
