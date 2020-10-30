@@ -72,17 +72,19 @@ export default function profilePage(){
                         <Toolbar/>
                             <div>{/* className={classes.drawerContainer} */}
                                 <List>
-                                    {['Live Listings', 'Sold Listings', 'Order History', 'Messages', 'Settings'].map((text, index) => (
-                                        <Link href="http://www.google.com">
-                                        <ListItem button key={text}>
+                                    {[
+                                        { link: 'orders', text: "Order History", index: 2},
+                                        { link: 'message', text: "Messages", index: 3},
+                                        { link: 'settings', text: "Settings", index: 4},
+                                    ].map((obj) => (
+                                        <Link href={"/user-profile-page/"+ obj.link}>
+                                        <ListItem button key={obj.text}>
                                             <ListItemIcon>
-                                                {index === 0 && <MoneyOffIcon/>}
-                                                {index === 1 && <MonetizationOnIcon/>}
-                                                {index === 2 && <HistoryIcon/>}
-                                                {index === 3 && <MailIcon/>}
-                                                {index === 4 && <SettingsIcon/>}
+                                                {obj.index === 2 && <HistoryIcon/>}
+                                                {obj.index === 3 && <MailIcon/>}
+                                                {obj.index === 4 && <SettingsIcon/>}
                                             </ListItemIcon>
-                                            <ListItemText primary={text} />
+                                            <ListItemText primary={obj.text} />
                                         </ListItem>
                                         </Link>
                                         
