@@ -4,11 +4,11 @@ import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Grid from '@material-ui/core/Grid';
+//import Grid from '@material-ui/core/Grid';
 import { useParams } from "react-router-dom";
 import axios from 'axios';
 
-const products = [
+/*const products = [
   { name: 'Product 1', desc: 'A nice thing', price: '$9.99' },
   { name: 'Shipping', desc: '', price: 'Free' },
 ];
@@ -19,6 +19,7 @@ const payments = [
   { name: 'Card number', detail: 'xxxx-xxxx-xxxx-1234' },
   { name: 'Expiry date', detail: '04/2024' },
 ];
+*/
 
 const useStyles = makeStyles((theme) => ({
   listItem: {
@@ -51,6 +52,8 @@ export default function Review() {
   }, [])
 
 
+
+  
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -71,32 +74,6 @@ export default function Review() {
           </Typography>
         </ListItem>
       </List>
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
-          <Typography variant="h6" gutterBottom className={classes.title}>
-            Shipping
-          </Typography>
-          <Typography gutterBottom>John Smith</Typography>
-          <Typography gutterBottom>{addresses.join(', ')}</Typography>
-        </Grid>
-        <Grid item container direction="column" xs={12} sm={6}>
-          <Typography variant="h6" gutterBottom className={classes.title}>
-            Payment details
-          </Typography>
-          <Grid container>
-            {payments.map((payment) => (
-              <React.Fragment key={payment.name}>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.name}</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.detail}</Typography>
-                </Grid>
-              </React.Fragment>
-            ))}
-          </Grid>
-        </Grid>
-      </Grid>
     </React.Fragment>
   );
 }

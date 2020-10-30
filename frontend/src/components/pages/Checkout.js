@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
+//import Toolbar from '@material-ui/core/Toolbar';
 import Paper from '@material-ui/core/Paper';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -11,20 +11,14 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
-import AddressForm from './AddressForm';
-import PaymentForm from './PaymentForm';
+//import AddressForm from './AddressForm';
+//import PaymentForm from './PaymentForm';
 import Review from './Review';
 import axios from 'axios';
-
+import PayPal from '../misc/paypal'
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
     </Typography>
   );
 }
@@ -66,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const steps = ['Shipping address', 'Payment details', 'Review your order'];
+const steps = ['Review your order'];
 
 export default function Checkout() {
   const classes = useStyles();
@@ -87,24 +81,17 @@ export default function Checkout() {
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
+    console.log(activeStep + 1)
   };
 
-  const handleBack = () => {
-    setActiveStep(activeStep - 1);
-  };
 
-  const getStepContent = (step) =>{
-    switch (step) {
-      case 0:
-        return <AddressForm />;
-      case 1:
-        return <PaymentForm />;
-      case 2:
-        return <Review/>;
-      default:
-        throw new Error('Unknown step');
-    }
+  
+  function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min); 
   }
+
 
   return (
     <React.Fragment>
@@ -125,36 +112,29 @@ export default function Checkout() {
             ))}
           </Stepper>
           <React.Fragment>
-            {activeStep === steps.length ? (
+            {activeStep == steps.length ? (
               <React.Fragment>
                 <Typography variant="h5" gutterBottom>
                   Thank you for your order.
                 </Typography>
                 <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order confirmation, and will
+                  Your order number is #{getRandomInt(2000000, 2999999)}. We have emailed your order confirmation, and will
                   send you an update when your order has shipped.
                 </Typography>
               </React.Fragment>
             ) : (
               <React.Fragment>
-                {getStepContent(activeStep)}
-                <div className={classes.buttons}>
-                  {activeStep !== 0 && (
-                    <Button onClick={handleBack} className={classes.button}>
-                      Back
-                    </Button>
-                  )}
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleNext}
-                    className={classes.button}
-                  >
-                    {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
-                  </Button>
-                </div>
+                 <Review />
+                <div className={classes.buttons}> 
+                
+                <Button onClick ={handleNext} >
+                 <PayPal/>
+                </Button>
+                </div> 
+                
               </React.Fragment>
             )}
+            
           </React.Fragment>
         </Paper>
         <Copyright />
