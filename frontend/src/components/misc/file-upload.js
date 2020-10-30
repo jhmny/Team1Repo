@@ -2,6 +2,7 @@ import React, { useCallback, useState } from "react";
 import Dropzone from "react-dropzone";
 import Button from "@material-ui/core/Button";
 import Axios from "axios";
+import Card from "@material-ui/core/Card";
 
 export default function MyDropzone(props) {
   const [Images, setImages] = useState([]);
@@ -66,7 +67,9 @@ export default function MyDropzone(props) {
         {Images.map((image, index) => (
                     <div onClick={() => onDelete(image)}>
                       {console.log(Images)}
-                        <img style={{ minWidth: '1px', width: '300px', height: '240px' }} src={`http://localhost:3000/${image}`} alt={`productImg-${index}`} />
+                        <img 
+                        style={{ minWidth: '1px', width: '300px', height: '240px' }} src={` ${image}`} alt={`productImg-${index}`}>
+                        </img>
                     </div>
                 ))}
       </div>
