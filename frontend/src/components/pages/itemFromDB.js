@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext} from "react";
+import React, {useEffect, useState} from "react";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
@@ -7,7 +7,6 @@ import { Row, Col } from "reactstrap";
 import ImageGallery from "react-image-gallery";
 import axios from 'axios';
 import { useParams } from "react-router-dom";
-import UserContext from "../../context/UserContext";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 const images = [
@@ -65,7 +64,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Listing(){
 const [listing, setListing] = useState({});
-const { userData, setUserData } = useContext(UserContext);
 
   let { id } = useParams(); //url 
   useEffect(() => {
@@ -79,7 +77,7 @@ const { userData, setUserData } = useContext(UserContext);
 
     const classes = useStyles();
 
-  if(userData.user) {
+  
     return (
       <React.Fragment>
         <CssBaseline />
@@ -141,18 +139,5 @@ const { userData, setUserData } = useContext(UserContext);
         </Grid>
       </React.Fragment>
     );
-} else {
-  return (
-    <Container component="main" maxWidth="lg">
-      <CssBaseline />
-      <div>
-        <Typography href = {'/login'} component="h1" variant="h5">
-        <div className={classes.title}>
-          <h1>Please Login or Register to view this Listing</h1>
-        </div>
-        </Typography>
-      </div>
-    </Container>
-    );
-  }
+
 }
