@@ -14,8 +14,9 @@ import Typography from '@material-ui/core/Typography';
 //import AddressForm from './AddressForm';
 //import PaymentForm from './PaymentForm';
 import Review from './Review';
-import axios from 'axios';
+import Axios from 'axios';
 import PayPal from '../misc/paypal'
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -66,24 +67,40 @@ export default function Checkout() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
   const [listing, setListing] = useState({});
+  const [userId, setUserId] = useState({});
+  
+
 
   let { id } = useParams(); //url 
-  console.log(id);
+  
   
   useEffect(() => {
-    axios.get('http://localhost:4000/listings/' + id)
+    Axios.get('http://localhost:4000/listings/' + id)
       .then(response => {
         setListing(response.data)
+        setUserId( localStorage.getItem("id"))
       })
     console.log(listing)
   }, [])
 
 
   const handleNext = () => {
+   
     setActiveStep(activeStep + 1);
-    console.log(activeStep + 1)
+  
   };
 
+  const transactionSuccess = () => {
+    
+    let userPurchase = { 
+      listingId: id,  listingName: listing.name, listingPrice: listing.price, buyerId: userId    
+    }
+
+    Axios.post('http://localhost:4000/users/buySuccess', userPurchase)
+
+    handleNext()
+    
+ }
 
   
   function getRandomInt(min, max) {
@@ -112,7 +129,7 @@ export default function Checkout() {
             ))}
           </Stepper>
           <React.Fragment>
-            {activeStep == steps.length ? (
+            {activeStep === steps.length ? (
               <React.Fragment>
                 <Typography variant="h5" gutterBottom>
                   Thank you for your order.
@@ -124,12 +141,14 @@ export default function Checkout() {
               </React.Fragment>
             ) : (
               <React.Fragment>
+
                  <Review />
                 <div className={classes.buttons}> 
+                 <PayPal
+                  toPay={listing.price}
+                  onSuccess = {transactionSuccess}
+                 />
                 
-                <Button onClick ={handleNext} >
-                 <PayPal/>
-                </Button>
                 </div> 
                 
               </React.Fragment>
