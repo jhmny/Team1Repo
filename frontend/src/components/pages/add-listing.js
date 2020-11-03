@@ -1,27 +1,32 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
 import UserContext from "../../context/UserContext";
 import Axios from "axios";
-import Dropzone from "react-dropzone";
 import MyDropzone from "../misc/file-upload.js";
-
-import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { TextareaAutosize } from "@material-ui/core";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
-import FormControl from "@material-ui/core/FormControl";
+
+
+const useStyles = makeStyles((theme) => ({
+  title: {
+    // title of product
+    display: "flex",
+    justifyContent: "center",
+  }
+
+}));
+
 
 export default function Create() {
   const [itemName, setItemName] = useState();
@@ -72,33 +77,25 @@ export default function Create() {
     }
   };
 
-  //Selection menu options
-  const garment = ["Upper Thread", "Lower Thread", "Footwear"];
-  const garmentSizes = ["XS", "S", "M", "L", "XL", "XXL"];
-  const shoeSizes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16];
-  const conditions = ["New", "Like New", "Used", "Damaged"];
-  const colors = [
-    "Blue",
-    "Red",
-    "Yellow",
-    "Brown",
-    "White",
-    "Black",
-    "Pink",
-    "Green",
-    "Purple",
-    "Orange",
-    "Gray",
-    "Beige",
-    "Camoflauge",
-    "Tie-Dye",
-  ];
+  const Filters = {
+    garment: ["Upper Thread", "Lower Thread", "Footwear"],
+    garmentSizes: ["XS", "S", "M", "L", "XL", "XXL"],
+    shoeSizes: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16],
+    conditions: ["New", "Like New", "Used", "Damaged"],
+    colors: ["Blue", "Red", "Yellow", "Brown", "White",
+      "Black", "Pink", "Green", "Purple", "Orange",
+      "Gray", "Beige", "Camoflauge", "Tie-Dye"
+    ]
+  }
 
 
   const updateImages = (newImages) => {
     console.log(newImages) //test
     setImages(newImages)
 }
+
+  //{setImages(acceptedFiles)}
+  const classes = useStyles();
 
   //https://material-ui.com/components/text-fields/
   if (userData.user) {
@@ -148,7 +145,7 @@ export default function Create() {
               value={garmentType}
               onChange={(e) => setGarmentType(e.target.value)}
             >
-              {garment.map((garments) => (
+              {Filters.garment.map((garments) => (
                 <MenuItem key={garments} value={garments}>
                   {garments}
                 </MenuItem>
@@ -164,13 +161,13 @@ export default function Create() {
               onChange={(e) => setSize(e.target.value)}
             >
               {garmentType == "Footwear" ? (
-                shoeSizes.map((sizes) => (
+                Filters.shoeSizes.map((sizes) => (
                   <MenuItem key={sizes} value={sizes}>
                     {sizes}
                   </MenuItem>
                 ))
               ) : (
-                  garmentSizes.map((sizes) => (
+                  Filters.garmentSizes.map((sizes) => (
                     <MenuItem key={sizes} value={sizes}>
                       {sizes}
                     </MenuItem>
@@ -185,7 +182,7 @@ export default function Create() {
               value={color}
               onChange={(e) => setColor(e.target.value)}
             >
-              {colors.map((colors) => (
+              {Filters.colors.map((colors) => (
                 <MenuItem key={colors} value={colors}>
                   {colors}
                 </MenuItem>
@@ -199,7 +196,7 @@ export default function Create() {
               value={condition}
               onChange={(e) => setCondition(e.target.value)}
             >
-              {conditions.map((conditions) => (
+              {Filters.conditions.map((conditions) => (
                 <MenuItem key={conditions} value={conditions}>
                   {conditions}
                 </MenuItem>
@@ -247,7 +244,9 @@ export default function Create() {
         <CssBaseline />
         <div>
           <Typography component="h1" variant="h5">
-            PLEASE LOG IN
+          <div className={classes.title}>
+          <h1>Please Login or Register to Create a Listing</h1>
+        </div>
           </Typography>
         </div>
       </Container>
