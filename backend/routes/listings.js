@@ -1,5 +1,7 @@
 const router = require("express").Router();
 const multer = require("multer");
+const fs = require("fs");
+const path = require("path");
 let Listing = require("../models/listing.model");
 
 router.route("/").get((req, res) => {
@@ -44,12 +46,12 @@ router.route("/add").post((req, res) => {
   const price = Number(req.body.price);
   const likes = Number(req.body.likes);
   const sold = false;
-  var link = " ";
+  const image = req.body.images;
   //const date = req.body.date;
   //const date = Date.parse(req.body.date);
 
   //console.log(username + " " + name + " " + description + " " + size + " " + color + " " + condition + " " + price + " " + likes);
-
+console.log(req.body);
   const newListing = new Listing({
     username,
     name,
@@ -60,7 +62,8 @@ router.route("/add").post((req, res) => {
     condition,
     price,
     likes,
-    sold
+    sold,
+    image
   });
 
   console.log(newListing);
@@ -110,6 +113,7 @@ router.route("/update/:id").post((req, res) => {
       listings.color = req.body.color;
       listings.condition = req.body.condition;
       listings.price = req.body.price;
+      listings.images = req.file.path;
 
       listings
         .save()
@@ -137,12 +141,11 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage }).single("file")
 
-console.log("hello");
-
 
 router.route("/upload").post((req, res) => {
-  upload(req, res, (err) => {
+  upload(req, res, err => {
     if (err) {
+      console.log("router upload post error got!")
       return res.status(400).json("Error: " + err);
     }
     return res.json({
