@@ -193,6 +193,7 @@ User.findOneAndUpdate (
             return res.json ({success: false, err});
         }
         console.log(doc);
+        res.end();
     });
    
 });

@@ -99,6 +99,8 @@ export default function Checkout() {
     Axios.post('http://localhost:4000/users/buySuccess', userPurchase)
 
     handleNext()
+      
+    
     
  }
 
