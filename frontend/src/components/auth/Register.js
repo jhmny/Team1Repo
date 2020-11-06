@@ -23,6 +23,7 @@ export default function Register() {
   const [email, setemail] = useState();
   const [username, setusername] = useState();
   const [password, setpassword] = useState();
+  const [myhistory, setHistory] = useState();
 
   const [error, setError] = useState();
 
@@ -32,7 +33,7 @@ export default function Register() {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      const newUser = { username, firstname, lastname, email, password };
+      const newUser = { username, firstname, lastname, email, password, myhistory };
       await Axios.post("http://localhost:4000/users/sign_up", newUser);
       const loginRes = await Axios.post("http://localhost:4000/users/login", {
         email,

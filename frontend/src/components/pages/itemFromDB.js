@@ -1,4 +1,5 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useContext} from "react";
+import UserContext from "../../context/UserContext";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
@@ -7,8 +8,11 @@ import { Row, Col } from "reactstrap";
 import ImageGallery from "react-image-gallery";
 import axios from 'axios';
 import { useParams } from "react-router-dom";
-import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
+import { Typography } from "@material-ui/core";
+
+//import { useDispatch } from 'react-redux';
+//import { param } from "../../../../backend/routes/users";
+
 const images = [
   // array holding item images
   {
@@ -64,6 +68,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Listing(){
 const [listing, setListing] = useState({});
+const { userData, setUserData } = useContext(UserContext);
+
 
   let { id } = useParams(); //url 
   useEffect(() => {
@@ -73,11 +79,10 @@ const [listing, setListing] = useState({});
       })
     console.log(listing)
   }, [])
-  
 
+  
     const classes = useStyles();
-
-  
+    if(userData.user){
     return (
       <React.Fragment>
         <CssBaseline />
@@ -130,8 +135,9 @@ const [listing, setListing] = useState({});
                     </form>
                   </Col>
                 </Row>
-                <Row>
-                  <Button>BuyNow</Button>
+                <Row>   
+                
+                  <Button href ={"/Checkout/" + id}> Buy Now </Button>
                 </Row>
               </div>
             </Col>
@@ -139,5 +145,69 @@ const [listing, setListing] = useState({});
         </Grid>
       </React.Fragment>
     );
+  } else {
 
+    return (
+      <React.Fragment>
+        <CssBaseline />
+        <div className={classes.title}>
+          <h1>{listing.name}</h1>
+        </div>
+        <Grid>
+          <Row className={classes.rLayout}>
+            <Col className={classes.c1Layout}>
+              {/* column for item images */}
+              <ImageGallery showPlayButton={false} items={images} />
+            </Col>
+            <Col className={classes.c2Layout}>
+              {/* column for item details */}
+              <div style={{ padding: 5 }}>
+                {/* rating section */}
+                Rating: COMING SOON
+              </div>
+              <hr />
+              <div style={{ padding: 10 }}>
+                {/* description section */}
+                LEGENDARY STYLE
+                <br />
+                {listing.description}
+                <br />
+              </div>
+              <hr />
+              <div>
+                {/* price section */}
+                <Row style={{ padding: 10 }}>
+                  <Col>{"Price: $" + listing.price}</Col>
+                  <br />
+                  <Col>
+                    <form>
+                      <label>
+                        Shoe Size: 
+                        <select>
+                          <option>{listing.size}</option>
+                        </select>
+                      </label>
+                    </form>
+                    <br />
+                  </Col>
+                  <Col>
+                    <form>
+                      <label>{"Shoe Quantity: "}</label>
+                      <select>
+                        <option>{listing.condition}</option>
+                      </select>
+                    </form>
+                  </Col>
+                </Row>
+                <Row>   
+                  <Typography> Login or Register to Purchase </Typography>
+                </Row>
+              </div>
+            </Col>
+          </Row>
+        </Grid>
+      </React.Fragment>
+    );
+  }
 }
+

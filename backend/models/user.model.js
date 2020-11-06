@@ -38,6 +38,11 @@ const userSchema = new Schema({
             required: [true, "Can not be blank"],
             match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'is invalid']
         },
+        
+        history: {
+            type: Array,
+            default: []
+        },
 
         password: {
             type: String,
