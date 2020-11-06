@@ -1,15 +1,14 @@
 import React, { useCallback, useState } from "react";
-import { useDropzone } from "react-dropzone";
 import Dropzone from "react-dropzone";
 import Button from "@material-ui/core/Button";
 import Axios from "axios";
+import Card from "@material-ui/core/Card";
 
 export default function MyDropzone(props) {
   const [Images, setImages] = useState([]);
-  const onDrop = (files) => {
 
+  const onDrop = (files) => {
     let formData = new FormData();
-    //
     const config = {
         header: { 'content-type': 'multipart/form-data' } ,   
     }
@@ -24,7 +23,7 @@ export default function MyDropzone(props) {
                 props.refreshFunction([...Images, response.data.image])
 
             } else {
-                alert('Failed to save the Image in Server')
+                alert('fail')
             }
         })
 }
@@ -45,14 +44,17 @@ export default function MyDropzone(props) {
       <Dropzone onDrop={onDrop} maxSize={9999999999} multiple ={false}>
         {({ getRootProps, getInputProps }) => (
          
-            <div {...getRootProps()}>
-              <input {...getInputProps()} />
-              <Button variant="outlined">Upload Image</Button>
+            <div {...getRootProps()}
+            >
+                {console.log('getRootProps', { ...getRootProps() })}
+                {console.log('getInputProps', { ...getInputProps() })}
+                <input {...getInputProps()} />
+                <Button variant="outlined">Upload Image</Button>
+
             </div>
           //https://react-dropzone.js.org/ Has Material UI stuff
         )}
       </Dropzone>
-
       <div
         style={{
           display: "flex",
@@ -61,9 +63,13 @@ export default function MyDropzone(props) {
           overflowX: "scroll",
         }}
       >
+        {console.log(Images)}
         {Images.map((image, index) => (
                     <div onClick={() => onDelete(image)}>
-                        <img   style={{ minWidth: '1px', width: '300px', height: '240px' }} src={`http://localhost:3000/${image}`} alt={`productImg-${index}`} />
+                      {console.log(Images)}
+                        <img 
+                        style={{ minWidth: '1px', width: '300px', height: '240px' }} src={` ${image}`} alt={`productImg-${index}`}>
+                        </img>
                     </div>
                 ))}
       </div>

@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
 import UserContext from "../../context/UserContext";
 import Axios from "axios";
 import MyDropzone from "../misc/file-upload.js";
@@ -15,6 +16,17 @@ import { TextareaAutosize } from "@material-ui/core";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
+
+
+const useStyles = makeStyles((theme) => ({
+  title: {
+    // title of product
+    display: "flex",
+    justifyContent: "center",
+  }
+
+}));
+
 
 export default function Create() {
   const [itemName, setItemName] = useState();
@@ -80,7 +92,9 @@ export default function Create() {
     console.log(newImages) //test
     setImages(newImages)
 }
+
   //{setImages(acceptedFiles)}
+  const classes = useStyles();
 
   //https://material-ui.com/components/text-fields/
   if (userData.user) {
@@ -229,7 +243,9 @@ export default function Create() {
         <CssBaseline />
         <div>
           <Typography component="h1" variant="h5">
-            PLEASE LOG IN
+          <div className={classes.title}>
+          <h1>Please Login or Register to Create a Listing</h1>
+        </div>
           </Typography>
         </div>
       </Container>

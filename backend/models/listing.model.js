@@ -51,16 +51,15 @@ const listingSchema = new Schema({
         min: 0,
         default: 0
     },
-    image : {  // The price of the listing
-        type: Array,
-        required: true,
-        default: [],
-    },
     sold: {  // The price of the listing
         type: Boolean,
         required: true,
         default: false
     },
+    image : [{  // The price of the listing
+        type: String,
+        required: true,
+    }],
 
 },  {
     timestamps: true,
