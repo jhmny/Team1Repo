@@ -52,19 +52,33 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+const sortOptions = [
+  "Price: High to Low", "Price: Low to High",
+  "Date: New", "Date: Old",
+  "Likes: Most", "Likes: Least"
+]
+
+const sortio = [
+  {id: "price", list: ["Price: High to Low", "Price: Low to High"], },
+  {id: "date", list: ["Recent", "Oldest",] },
+  {id: "likes",list: ["Likes"]}
+]
+
 export default function Album() {
   const classes = useStyles();
 
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [listings, setListings] = useState([]);
+  const [sort, setSort] = useState({id: "", ascending:true});
   const [filter, setFilter] = useState({
+    sold:false,
     category: [], size: [],
     color: [], condition: [],
   });
 
   useEffect(() => {
-    fetch("http://localhost:4000/listings")
+    fetch("http://localhost:4000/listings/filter", { method: "POST", body: filter })
       .then(res => res.json())
       .then(
         (result) => {
@@ -87,7 +101,9 @@ export default function Album() {
       .then(response => {
         setListings([]);
         setListings(response.data)
+        console.log(response.data);
       });
+    //console.log(listings);
   }
 
   const removeNum = (i) => {
@@ -114,6 +130,79 @@ export default function Album() {
       </Select>
     </FormControl>
   );
+
+  const handleChange = (value) => {
+    var newSort = sort;
+    var i = 0;
+    for(i = 0; i < sortOptions.length; i++){
+      if(sortOptions[i] === value){
+        newSort.id = value.slice(0, value.indexOf(":"));
+        newSort.ascending = i%2;
+        break;
+      }
+    }
+    setSort(newSort);
+    var sortListings = listings;
+    if(newSort.id = "Price"){
+      if(newSort.ascending){
+        sortListings.sort(function (a, b) { return a.price - b.price });
+      }
+      else{
+        sortListings.sort(function (a, b) { return b.price - a.price });
+      }
+    }
+    /*
+    else if(id = "Date"){
+      if (ascending) {
+        sortListings.sort(function (a, b) { return a.price - b.price });
+      }
+      else {
+        sortListings.sort(function (a, b) { return b.price - a.price });
+      }
+    }
+    */
+    console.log(sortListings);
+    setListings([]);
+    setListings(sortListings);
+    console.log(listings);
+  }
+
+  const sortList = () => (
+    <FormControl className={classes.formControl}>
+      <InputLabel>Sort by:</InputLabel>
+      <Select
+        value={sort.id}
+        onChange={(e) => handleChange(e.target.value)}
+        input={<Input />}
+      >
+        {sortOptions.map((currentOptions) => (
+          <MenuItem key={currentOptions} value={currentOptions}>
+            {currentOptions}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
+  );
+
+  /*
+  const filterSlide = (currentFilter) => (
+    <FormControl className={classes.formControl}>
+      <Typography gutterBottom>
+        Price
+      </Typography>
+      <Slider
+        min={0}
+        step={10}
+        max={1000}
+        value={filter[currentFilter.id]}
+        onChange={handleChange}
+        valueLabelDisplay="auto"
+        aria-labelledby="range-slider"
+        getAriaValueText={valuetext}
+      />
+    </FormControl>
+  );
+    */
 
   const displayListings = () => {
     return (
@@ -177,6 +266,7 @@ export default function Album() {
             {filterList(Filters.condition)}
             {filterList(Filters.color)}
           </div>
+          <div>{sortList()}</div>
           {displayListings()}
         </main>
         <Fab href="/listings/create" color="primary" aria-label="add">

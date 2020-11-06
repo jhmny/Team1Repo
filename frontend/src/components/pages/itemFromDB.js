@@ -123,7 +123,7 @@ const [listing, setListing] = useState({});
                   </Col>
                   <Col>
                     <form>
-                      <label>{"Shoe Quantity: "}</label>
+                      <label>{"Shoe Condition: "}</label>
                       <select>
                         <option>{listing.condition}</option>
                       </select>

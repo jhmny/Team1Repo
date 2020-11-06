@@ -19,10 +19,6 @@ import Copyright from "./components/layout/Copyright.js";
 
 export const sections  = [
   { title: "Home", url: "/" },
-  { title: "Shirts", url: "#" },
-  { title: "Pants", url: "#" },
-  { title: "Shoes", url: "#" },
-  { title: "Hamsters ", url: "#" },
   { title: "New Listing", url: "/listings/create" },
   { title: "All Listings", url: "/listings" },
   { title: "Yeezy", url: "/listings/5f87b8b75a9ba409f9d22269" },
