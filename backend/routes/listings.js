@@ -106,15 +106,13 @@ router.route("/:id").delete((req, res) => {
 router.route("/update/:id").post((req, res) => {
   Listing.findById(req.params.id)
     .then((listings) => {
-      listings.username = req.body.username;
-      listings.name = req.body.name;
-      listings.description = req.body.description;
-      listings.size = req.body.size;
-      listings.color = req.body.color;
-      listings.condition = req.body.condition;
-      listings.price = req.body.price;
-      listings.images = req.file.path;
-
+      const keys = Object.keys(req.body);
+      var i = 0;
+      for (i = 0; i < keys.length; i++) {
+        if (req.body[keys[i]].length != 0) {
+          listings[keys[i]] = req.body[keys[i]];
+        }
+      }
       listings
         .save()
         .then(() => res.json("Listing updated."))
