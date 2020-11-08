@@ -1,5 +1,5 @@
 import React from "react";
-import Album from "./home-page"
+import Album from "./Show-Listings"
 
 export default function HomePage() {
   return (

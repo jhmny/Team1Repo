@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import Album from "./home-page"
+import Album from "./Show-Listings"
 import UserContext from "../../context/UserContext";
 
 export default function WishList() {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 //These are files for webpage html rendering at specific URLs
-import HomePage from "./components/pages/home-page copy.js";
+import HomePage from "./components/pages/home-page.js";
 import AllUsers from "./components/pages/all-users.js";
 import AllListings from "./components/pages/all-listings.js";
 import AddListings from "./components/pages/add-listing.js";
