@@ -30,6 +30,7 @@ export default function Login() {
         "http://localhost:4000/users/login",
         loginUser
       );
+      console.log(loginUser);
       setUserData({
         token: loginRes.data.token,
         user: loginRes.data.user,

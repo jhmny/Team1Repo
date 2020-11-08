@@ -43,6 +43,7 @@ router.route('/sign_up').post((req, res) => {
     const email = req.body.email;
     const password = req.body.password; //hash;
     const history = req.body.myhistory;
+    const wishlist = [""];
 
     if(password.length < 8){
         return res
@@ -56,7 +57,8 @@ router.route('/sign_up').post((req, res) => {
         lastname,
         email,
         password: hash,
-        history
+        history,
+        wishlist
     });
 
     newUser.save()
@@ -97,6 +99,7 @@ router.route('/login').post((req, res) => {
                             id: user._id,
                             displayName: user.username,
                             email: user.email,
+                            wishlist: user.wishlist
                         },
                     });
                 }
@@ -149,7 +152,7 @@ router.get('/', auth, async (req, res) => {
     });
 });
 
-
+/*
 //This is used to update the users profile
 router.route('/update/:id').post((req, res) => {
    User.findById(req.params.id)
@@ -165,13 +168,35 @@ router.route('/update/:id').post((req, res) => {
                 users.save()
                     .then(() => res.json('Listing updated.'))
                     .catch(err => res.status(400).json('Error: ' + err));
-
             });
         })
-        .catch(err => res.status(400).json('Error: ' + err));
+        .catch(err => res.status(400).json('Error: ' + err)); 
+});
+*/
+router.route('/update/:id').post((req, res) => {
+        //or use this
+        //https://mongoosejs.com/docs/api.html#model_Model.findByIdAndUpdate
         
+        User.updateOne(
+            { _id: req.params.id },
+            { [Object.keys(req.body)[0]]: req.body[Object.keys(req.body)[0]]},
+            { new: true },
+            (err, user) => {
+                if (err) {
+                    return res.json({ success: false, err });
+                }
+                console.log(user);
+                res.end();
+            }
+        );
 });
 
+router.route('/wishlist/:id').get((req, res) => {
+    User.findById(req.params.id)
+        .then(users => {res.json(users.wishlist)
+        console.log(users.wishlist)})
+        .catch(err => res.status(400).json('Error: ' + err));
+});
 
 router.route('/buySuccess').post((req,res) => {
 let userHistory = [];
@@ -198,6 +223,4 @@ User.findOneAndUpdate (
    
 });
 
-
 module.exports = router;
-

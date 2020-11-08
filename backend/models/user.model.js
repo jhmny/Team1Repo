@@ -44,11 +44,15 @@ const userSchema = new Schema({
             default: []
         },
 
+        wishlist: {
+            type: Array,
+            default: [""]
+        },
+
         password: {
             type: String,
             required: true,
             minlength: [8, "Password too short!" ],
-           
         },
 
 }, {

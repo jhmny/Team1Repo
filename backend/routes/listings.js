@@ -49,10 +49,11 @@ router.route("/add").post((req, res) => {
   const image = req.body.images;
   //const date = req.body.date;
   //const date = Date.parse(req.body.date);
+  
 
   //console.log(username + " " + name + " " + description + " " + size + " " + color + " " + condition + " " + price + " " + likes);
 console.log(req.body);
-  const newListing = new Listing({
+  var newListing = new Listing({
     username,
     name,
     description,
@@ -67,6 +68,8 @@ console.log(req.body);
   });
 
   console.log(newListing);
+  //newListing.image = (newListing.image).map(myFunction);
+  ///fs.renameSync(, newListing.id+);
 
   newListing
     .save()
@@ -103,10 +106,35 @@ router.route("/:id").delete((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+
+router.route("/filter").post((req, res) => {
+  const keys = Object.keys(req.body);
+  var filter = {};
+  var i = 0;
+  for (i = 0; i < keys.length; i++) {
+    if (req.body[keys[i]].length != 0) {
+      filter[keys[i]] = req.body[keys[i]];
+    }
+  }
+  //console.log(req.body);
+  //console.log(filter); these two should match, excluding empty arrays
+
+  Listing.find(filter, function (err, listings) {
+    if (err) {
+      console.log("bad");
+      res.json(err);
+    }
+  }).then(function (listings) {
+    //console.log("good");
+    res.json(listings);
+  });
+});
+
 router.route("/update/:id").post((req, res) => {
   Listing.findById(req.params.id)
     .then((listings) => {
-      const keys = Object.keys(req.body);
+      console.log(listings);
+      var keys = Object.keys(req.body);
       var i = 0;
       for (i = 0; i < keys.length; i++) {
         if (req.body[keys[i]].length != 0) {
@@ -123,7 +151,7 @@ router.route("/update/:id").post((req, res) => {
 
 var storage = multer.diskStorage({
   destination: (req, file, cb) => {
-      cb(null, '../uploads/')
+    cb(null, './public/listing-images')
   },
   filename: (req, file, cb) => {
       cb(null, `${Date.now()}_${file.originalname}`)
@@ -155,3 +183,8 @@ router.route("/upload").post((req, res) => {
 });
 
 module.exports = router;
+
+/*router.route("/images").post((req, res) => {
+  
+});
+*/

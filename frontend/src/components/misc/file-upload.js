@@ -15,10 +15,10 @@ export default function MyDropzone(props) {
      
     formData.append("file", files[0])
     console.log("before upload call ");
+    console.log(formData);
     Axios.post('http://localhost:4000/listings/upload', formData, config)
         .then(response => {
-            if (response.data.success) {
-               
+            if (response.data) {
                 setImages([...Images, response.data.image])
                 props.refreshFunction([...Images, response.data.image])
 

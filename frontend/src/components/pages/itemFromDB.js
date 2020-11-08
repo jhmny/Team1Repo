@@ -9,7 +9,9 @@ import ImageGallery from "react-image-gallery";
 import axios from 'axios';
 import { useParams } from "react-router-dom";
 import { Typography } from "@material-ui/core";
-
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 //import { useDispatch } from 'react-redux';
 //import { param } from "../../../../backend/routes/users";
 
@@ -66,148 +68,129 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 export default function Listing(){
 const [listing, setListing] = useState({});
+const [isLoaded1, setIsLoaded1] = useState();
+const [onWish, setOnWish] = useState(false);
+const [wishlist, setWishlist] = useState([""]);
 const { userData, setUserData } = useContext(UserContext);
-
-
-  let { id } = useParams(); //url 
-  useEffect(() => {
-    axios.get('http://localhost:4000/listings/' + id)
+let { id } = useParams(); //url 
+  
+ useEffect(() => {
+  axios.get('http://localhost:4000/listings/' + id)
       .then(response => {
+        console.log(response.data);
         setListing(response.data)
+        setIsLoaded1(true);
       })
-    console.log(listing)
+  
+    //always gets wishlist whether signed in or not  
+    axios.get('http://localhost:4000/users/wishlist/' + localStorage.getItem("id"))
+      .then(response => {
+        setOnWish(response.data.includes(id));
+        setWishlist(response.data);
+      })
   }, [])
 
-  
-    const classes = useStyles();
-    if(userData.user){
-    return (
-      <React.Fragment>
-        <CssBaseline />
-        <div className={classes.title}>
-          <h1>{listing.name}</h1>
-        </div>
-        <Grid>
-          <Row className={classes.rLayout}>
-            <Col className={classes.c1Layout}>
-              {/* column for item images */}
-              <ImageGallery showPlayButton={false} items={images} />
-            </Col>
-            <Col className={classes.c2Layout}>
-              {/* column for item details */}
-              <div style={{ padding: 5 }}>
-                {/* rating section */}
-                Rating: COMING SOON
-              </div>
-              <hr />
-              <div style={{ padding: 10 }}>
-                {/* description section */}
-                LEGENDARY STYLE
-                <br />
-                {listing.description}
-                <br />
-              </div>
-              <hr />
-              <div>
-                {/* price section */}
-                <Row style={{ padding: 10 }}>
-                  <Col>{"Price: $" + listing.price}</Col>
-                  <br />
-                  <Col>
-                    <form>
-                      <label>
-                        Shoe Size: 
-                        <select>
-                          <option>{listing.size}</option>
-                        </select>
-                      </label>
-                    </form>
-                    <br />
-                  </Col>
-                  <Col>
-                    <form>
-                      <label>{"Shoe Quantity: "}</label>
-                      <select>
-                        <option>{listing.condition}</option>
-                      </select>
-                    </form>
-                  </Col>
-                </Row>
-                <Row>   
-                
-                  <Button href ={"/Checkout/" + id}> Buy Now </Button>
-                </Row>
-              </div>
-            </Col>
-          </Row>
-        </Grid>
-      </React.Fragment>
-    );
-  } else {
-
-    return (
-      <React.Fragment>
-        <CssBaseline />
-        <div className={classes.title}>
-          <h1>{listing.name}</h1>
-        </div>
-        <Grid>
-          <Row className={classes.rLayout}>
-            <Col className={classes.c1Layout}>
-              {/* column for item images */}
-              <ImageGallery showPlayButton={false} items={images} />
-            </Col>
-            <Col className={classes.c2Layout}>
-              {/* column for item details */}
-              <div style={{ padding: 5 }}>
-                {/* rating section */}
-                Rating: COMING SOON
-              </div>
-              <hr />
-              <div style={{ padding: 10 }}>
-                {/* description section */}
-                LEGENDARY STYLE
-                <br />
-                {listing.description}
-                <br />
-              </div>
-              <hr />
-              <div>
-                {/* price section */}
-                <Row style={{ padding: 10 }}>
-                  <Col>{"Price: $" + listing.price}</Col>
-                  <br />
-                  <Col>
-                    <form>
-                      <label>
-                        Shoe Size: 
-                        <select>
-                          <option>{listing.size}</option>
-                        </select>
-                      </label>
-                    </form>
-                    <br />
-                  </Col>
-                  <Col>
-                    <form>
-                      <label>{"Shoe Quantity: "}</label>
-                      <select>
-                        <option>{listing.condition}</option>
-                      </select>
-                    </form>
-                  </Col>
-                </Row>
-                <Row>   
-                  <Typography> Login or Register to Purchase </Typography>
-                </Row>
-              </div>
-            </Col>
-          </Row>
-        </Grid>
-      </React.Fragment>
-    );
+  const onSubmit = () => {
+    console.log("onSubmit: ", onWish);
+    console.log("Before: ", wishlist);
+    if(onWish){
+      wishlist.splice(wishlist.indexOf(id), 1);
+    }
+    else{
+      wishlist.push(id);
+    }
+    console.log("After: ",wishlist);
+    axios.post('http://localhost:4000/users/update/' + localStorage.getItem("id"), {wishlist: wishlist})
+      .then(response => {
+        console.log(response.data);
+      })
+    setOnWish(!onWish);
   }
+
+    const classes = useStyles();
+    if(!isLoaded1){
+      return <div>Loading...</div>;
+    }
+    else{
+    return (
+      <React.Fragment>
+        <CssBaseline />
+        <div className={classes.title}>
+          <h1>{listing.name}</h1>
+        </div>
+        <Grid>
+          <Row className={classes.rLayout}>
+            <Col className={classes.c1Layout}>
+              {/* column for item images */}
+              <ImageGallery showPlayButton={false} items={images} />
+            </Col>
+            <Col className={classes.c2Layout}>
+              {/* column for item details */}
+              <div style={{ padding: 5 }}>
+                {/* rating section */}
+                Rating: COMING SOON
+              </div>
+              <hr />
+              <div style={{ padding: 10 }}>
+                {/* description section */}
+                LEGENDARY STYLE
+                <br />
+                {listing.description}
+                <br />
+              </div>
+              <hr />
+              <div>
+                {/* price section */}
+                <Row style={{ padding: 10 }}>
+                  <Col>{"Price: $" + listing.price}</Col>
+                  <br />
+                  <Col>
+                      {"Shoe Size: " + listing.size}
+                    <br />
+                  </Col>
+                  <Col>
+                    {"Shoe Condition: " + listing.condition}
+                  </Col>
+                </Row>
+                <Row>   
+                  {userData.user ? (
+                    listing.sold? (
+                      <Typography> Sold </Typography>
+                    ) : (
+                        <Button href={"/Checkout/" + id}
+                        variant="contained"
+                        color="primary" 
+                        startIcon={<ShoppingBasketIcon />}> 
+                        Buy Now </Button>
+                      )
+                  ) : (
+                    <Button href={"/login"}
+                        variant="contained"
+                        color="primary">  
+                        Login to Purchase </Button>
+                  )}
+                  {userData.user ? (   
+                    onWish? (
+                      <Button onClick={onSubmit} color="secondary" variant="outlined" startIcon={<FavoriteIcon />}> 
+                      Remove </Button>
+                      ):(
+                      <Button onClick={onSubmit} color="secondary" variant="contained" startIcon={<FavoriteBorderIcon />}> 
+                      Add </Button>
+                      )
+                  ):("")
+                  }
+                 
+                  
+                </Row>
+              </div>
+            </Col>
+          </Row>
+        </Grid>
+      </React.Fragment>
+    );
+}
 }
 
