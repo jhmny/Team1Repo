@@ -14,17 +14,19 @@ router.route("/").get((req, res) => {
 
 router.route("/filter").post((req, res) => {
   const keys = Object.keys(req.body);
-  var filter = {};
   var i = 0;
   for(i = 0; i < keys.length; i++){
-    if(req.body[keys[i]].length !=0){
-      filter[keys[i]] = req.body[keys[i]];
+    if(req.body[keys[i]].length === 0){
+     delete req.body[keys[i]];
     }
   }
-  //console.log(req.body);
-  //console.log(filter); these two should match, excluding empty arrays
-
-  Listing.find(filter, function (err, listings) {
+  console.log(req.body);
+  
+  if (Object.keys(req.body).includes("_id")){
+    req.body._id = {$in: req.body._id};
+  }
+  
+  Listing.find(req.body, function (err, listings) {
     if (err) {
       console.log("bad");
       res.json(err);
@@ -131,22 +133,21 @@ router.route("/filter").post((req, res) => {
 });
 
 router.route("/update/:id").post((req, res) => {
-  Listing.findById(req.params.id)
-    .then((listings) => {
-      console.log(listings);
-      var keys = Object.keys(req.body);
-      var i = 0;
-      for (i = 0; i < keys.length; i++) {
-        if (req.body[keys[i]].length != 0) {
-          listings[keys[i]] = req.body[keys[i]];
-        }
+  //example inputs for req.body
+  //ex1: { sold: true }
+  //ex2: { size: "XL"}
+  Listing.updateOne(
+    { _id: req.params.id },
+    { [Object.keys(req.body)[0]]: req.body[Object.keys(req.body)[0]] },
+    { new: true },
+    (err, listing) => {
+      if (err) {
+        return res.json({ success: false, err });
       }
-      listings
-        .save()
-        .then(() => res.json("Listing updated."))
-        .catch((err) => res.status(400).json("Error: " + err));
-    })
-    .catch((err) => res.status(400).json("Error: " + err));
+      console.log(listing);
+      res.end();
+    }
+  );
 });
 
 var storage = multer.diskStorage({

@@ -52,30 +52,20 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Album() {
+export default function Album(props) {
   const classes = useStyles();
-
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [listings, setListings] = useState([]);
-  const [filter, setFilter] = useState({
-    category: [], size: [],
-    color: [], condition: [],
-  });
+  const [filter, setFilter] = useState(props.inputFilter)
 
   useEffect(() => {
-    fetch("http://localhost:4000/listings")
-      .then(res => res.json())
-      .then(
-        (result) => {
-          setIsLoaded(true);
-          setListings(result);
-        },
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
-        }
-      )
+    console.log(filter);
+    Axios.post("http://localhost:4000/listings/filter", filter)
+      .then(response => {
+        setIsLoaded(true);
+        setListings(response.data);
+      });
   }, [])
 
   const handleToggle = (id, value) => {
@@ -176,6 +166,7 @@ export default function Album() {
             
             {filterList(Filters.condition)}
             {filterList(Filters.color)}
+            {/*filterList(Filters.sold)*/}
           </div>
           {displayListings()}
         </main>

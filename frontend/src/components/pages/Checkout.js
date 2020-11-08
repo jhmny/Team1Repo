@@ -97,6 +97,8 @@ export default function Checkout() {
     }
 
     Axios.post('http://localhost:4000/users/buySuccess', userPurchase)
+    Axios.post('http://localhost:4000/listings/update/' + id, 
+    { sold: true })
 
     handleNext()
       

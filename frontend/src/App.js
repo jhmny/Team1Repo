@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 //These are files for webpage html rendering at specific URLs
-import HomePage from "./components/pages/home-page.js";
+import HomePage from "./components/pages/home-page copy.js";
 import AllUsers from "./components/pages/all-users.js";
 import AllListings from "./components/pages/all-listings.js";
 import AddListings from "./components/pages/add-listing.js";
@@ -11,6 +11,8 @@ import Checkout from "./components/pages/Checkout";
 
 
 import Listing from "./components/pages/itemFromDB.js";
+import WishList from "./components/pages/Wishlist";
+import Sold from "./components/pages/Sold";
 import item from "./components/pages/item.js";
 import Axios from "axios";
 import Header from "./components/layout/header.js";
@@ -21,13 +23,10 @@ import Copyright from "./components/layout/Copyright.js";
 
 export const sections  = [
   { title: "Home", url: "/" },
-  { title: "Shirts", url: "#" },
-  { title: "Pants", url: "#" },
-  { title: "Shoes", url: "#" },
-  { title: "Hamsters ", url: "#" },
+  { title: "Wishlist", url: "/wishlist" },
+  { title: "Sold", url: "/sold" },
   { title: "New Listing", url: "/listings/create" },
   { title: "All Listings", url: "/listings" },
-  { title: "Yeezy", url: "/listings/5f87b8b75a9ba409f9d22269" },
   { title: " ", url: "#" },
 ];
 
@@ -73,6 +72,8 @@ export default function App() {
           <div className="container">
             <Switch>
               <Route path="/" exact component={HomePage} />
+              <Route path="/wishlist" exact component={WishList} />
+              <Route path="/sold" exact component={Sold} />
               <Route path="/users" exact component={AllUsers} />
               <Route path="/listings" exact component={AllListings} />
               <Route path="/listings/create" exact component={AddListings} />
