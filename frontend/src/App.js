@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 //These are files for webpage html rendering at specific URLs
 import HomePage from "./components/pages/home-page.js";
-import AllUsers from "./components/pages/all-users.js";
 import AllListings from "./components/pages/all-listings.js";
 import AddListings from "./components/pages/add-listing.js";
 import Login from "./components/auth/Login";
@@ -74,7 +73,6 @@ export default function App() {
               <Route path="/" exact component={HomePage} />
               <Route path="/wishlist" exact component={WishList} />
               <Route path="/sold" exact component={Sold} />
-              <Route path="/users" exact component={AllUsers} />
               <Route path="/listings" exact component={AllListings} />
               <Route path="/listings/create" exact component={AddListings} />
               <Route path="/item" exact component={item} />

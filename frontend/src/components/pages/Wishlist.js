@@ -30,11 +30,9 @@ export default function WishList() {
         <div>
         {userData.user? (
             (listings.length > 0)? (
-                <Album inputFilter={{
+                <Album showFilters={false} inputFilter={{
                     _id: listings,
-                    category: [], size: [],
-                    color: [], condition: []
-                }} />
+                }}/>
             ):(
                 <h1>
                     No Items in WishList

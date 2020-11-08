@@ -4,11 +4,11 @@ import Album from "./Show-Listings"
 export default function HomePage() {
   return (
     <div>
-          <Album inputFilter={{
-            sold: false,
-            category: [], size: [],
-            color: [], condition: []
-          }}/>
+        <Album showFilters={true} inputFilter={{
+          sold: false,
+          category: [], size: [],
+          color: [], condition: []
+        }}/>
     </div>
   )
 }

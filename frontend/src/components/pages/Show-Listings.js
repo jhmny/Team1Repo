@@ -57,10 +57,10 @@ export default function Album(props) {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [listings, setListings] = useState([]);
+  const [showFilters, setShowFilters] = useState(props.showFilters);
   const [filter, setFilter] = useState(props.inputFilter)
 
   useEffect(() => {
-    console.log(filter);
     Axios.post("http://localhost:4000/listings/filter", filter)
       .then(response => {
         setIsLoaded(true);
@@ -125,9 +125,16 @@ export default function Album(props) {
 
                 </CardContent>
                 <CardActions>
-                  <Button href={"/listings/" + item._id} size="medium" color="primary">
+                  {item.sold? (
+                    <Button href={"/listings/" + item._id} size="medium" color="secondary">
+                      SOLD
+                    </Button>
+                  ):(
+                      <Button href={"/listings/" + item._id} size="medium" color="primary" variant="outlined">
                     Buy ${item.price}
                   </Button>
+                  )
+                  }
                 </CardActions>
               </Card>
             </Grid>
@@ -149,6 +156,7 @@ export default function Album(props) {
       <React.Fragment>
         <CssBaseline />
         <main>
+          {showFilters?(
           <div>
             {filterList(Filters.category) /*Category*/}
 
@@ -166,8 +174,9 @@ export default function Album(props) {
             
             {filterList(Filters.condition)}
             {filterList(Filters.color)}
-            {/*filterList(Filters.sold)*/}
           </div>
+          ):("")
+        }
           {displayListings()}
         </main>
         <Fab href="/listings/create" color="primary" aria-label="add">

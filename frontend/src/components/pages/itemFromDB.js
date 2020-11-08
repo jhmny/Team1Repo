@@ -175,10 +175,10 @@ let { id } = useParams(); //url
                   {userData.user ? (   
                     onWish? (
                       <Button onClick={onSubmit} color="secondary" variant="outlined" startIcon={<FavoriteIcon />}> 
-                      Remove </Button>
-                      ):(
-                      <Button onClick={onSubmit} color="secondary" variant="contained" startIcon={<FavoriteBorderIcon />}> 
-                      Add </Button>
+                      unFavorite </Button>
+                      ):( listing.sold?(""):(
+                        <Button onClick={onSubmit} color="secondary" variant="contained" startIcon={<FavoriteBorderIcon />}>
+                          Favorite </Button>)
                       )
                   ):("")
                   }
