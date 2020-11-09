@@ -5,7 +5,8 @@ import {
   Button, Card, CardActions, CardContent,
   CardMedia, CssBaseline, Grid, Typography,
   Container, Fab, FormControl, Input, 
-  InputLabel, Select, MenuItem
+  InputLabel, Select, MenuItem,
+  ListItemText, Checkbox, Chip
 } from '@material-ui/core';
 import Axios from "axios";
 import {Filters} from "../misc/filters";
@@ -95,10 +96,19 @@ export default function Album(props) {
         value={filter[currentFilter.id]}
         onChange={(e) => handleToggle(currentFilter.id, e.target.value)}
         input={<Input />}
+        renderValue={(selected) => (
+          <div className={classes.chips}>
+            {selected.map((value) => (
+              <Chip key={value} label={value} className={classes.chip} 
+                color="primary" size="small"/>
+            ))}
+          </div>
+        )}
       >
         {currentFilter.list.map((currentOptions) => (
           <MenuItem key={currentOptions} value={currentOptions}>
-            {currentOptions}
+            <Checkbox checked={filter[currentFilter.id].indexOf(currentOptions) > -1} />
+            <ListItemText primary={currentOptions} />
           </MenuItem>
         ))}
       </Select>
@@ -157,26 +167,26 @@ export default function Album(props) {
         <CssBaseline />
         <main>
           {showFilters?(
-          <div>
-            {filterList(Filters.category) /*Category*/}
+            <div>
+              {filterList(Filters.category) /*Category*/}
 
-            {(filter.category.includes("Upper Thread") || filter.category.includes("Lower Thread")) ? (
-              filterList(Filters.size[0])
-            ) : (filter.size.filter(removeNum).length === 0 ? ("") :
-              (handleToggle("size", filter.size.filter(removeStr)))
+              {(filter.category.includes("Upper Thread") || filter.category.includes("Lower Thread")) ? (
+                filterList(Filters.size[0])
+              ) : (filter.size.filter(removeNum).length === 0 ? ("") :
+                (handleToggle("size", filter.size.filter(removeStr)))
+                )} 
+
+              {(filter.category.includes("Footwear")) ? (
+                filterList(Filters.size[1])
+              ) : (filter.size.filter(removeStr).length === 0? ("") : 
+              (handleToggle("size", filter.size.filter(removeNum)))
               )} 
-
-            {(filter.category.includes("Footwear")) ? (
-              filterList(Filters.size[1])
-            ) : (filter.size.filter(removeStr).length === 0? ("") : 
-            (handleToggle("size", filter.size.filter(removeNum)))
-            )} 
-            
-            {filterList(Filters.condition)}
-            {filterList(Filters.color)}
-          </div>
-          ):("")
-        }
+              
+              {filterList(Filters.condition)}
+              {filterList(Filters.color)}
+            </div>
+            ):("")
+          }
           {displayListings()}
         </main>
         <Fab href="/listings/create" color="primary" aria-label="add">
