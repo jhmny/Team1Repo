@@ -67,11 +67,7 @@ export default function MyDropzone(props) {
                     <div onClick={() => onDelete(image)}>
                       {console.log(Images)}
                         <img 
-<<<<<<< Updated upstream
                         style={{ minWidth: '1px', width: '300px', height: '240px' }} src={`/${image}`} alt={`productImg-${index}`}>
-=======
-                        style={{ minWidth: '10px', width: '300px', height: '240px' }} src={require(`${image}`)} alt={`productImg-${index}`}>
->>>>>>> Stashed changes
                         </img>
                     </div>
                 ))}

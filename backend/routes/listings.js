@@ -125,11 +125,7 @@ router.route("/update/:id").post((req, res) => {
 
 var storage = multer.diskStorage({
   destination: (req, file, cb) => {
-<<<<<<< Updated upstream
-      cb(null, '../frontend/uploads/')
-=======
     cb(null, '../frontend/public/images')
->>>>>>> Stashed changes
   },
   filename: (req, file, cb) => {
       cb(null, `${Date.now()}_${file.originalname}`)
